@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <!-- 모바일에서 화면 폭에 맞춰 렌더링하라는 신호. 이게 없으면 반응형 CSS가 동작하지 않는다. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codewhite7777 | Portfolio</title>
+  <meta name="description" content="HTML, CSS, JavaScript만으로 처음부터 만든 codewhite7777의 반응형 포트폴리오 웹사이트">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--
+    defer: HTML을 끝까지 읽은 뒤(DOM이 완성된 뒤) 위에서 아래 순서대로 실행한다.
+    그래서 스크립트 안에서 document.querySelector로 요소를 바로 찾을 수 있고,
+    페이지 표시를 막지도 않는다. (main.js가 마지막: 앞 파일의 함수를 조립해서 실행)
+  -->
+  <script defer src="js/config.js"></script>
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script defer src="js/nav.js"></script>
+  <script defer src="js/effects.js"></script>
+  <script defer src="js/form.js"></script>
+  <script defer src="js/projects.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <!-- ===== Header: 로고(왼쪽) + 메뉴(오른쪽) — Flexbox ===== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav container" aria-label="주요 메뉴">
+      <a class="nav__logo" href="#hero">codewhite<span>7777</span></a>
+
+      <ul class="nav__menu" id="nav-menu">
+        <li><a class="nav__link" href="#about">About</a></li>
+        <li><a class="nav__link" href="#skills">Skills</a></li>
+        <li><a class="nav__link" href="#projects">Projects</a></li>
+        <li><a class="nav__link" href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="다크 모드" aria-pressed="false">
+          <!-- 아이콘 교체는 CSS([data-theme])가 담당한다 -->
+          <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="icon-btn nav__toggle" id="nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+          <span class="bar" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <p class="hero__eyebrow">Hello!</p>
+        <h1 class="hero__title" id="hero-title">
+          저는 <span class="hero__name">codewhite7777</span>입니다.
+        </h1>
+        <!-- 타자기 효과 문구. 화면 낭독기에는 아래 숨김 문장만 읽히게 한다. -->
+        <p class="hero__role">
+          <span class="visually-hidden">HTML, CSS, JavaScript로 웹을 만드는 학습자</span>
+          <span class="hero__typing" id="typing-text" aria-hidden="true">HTML, CSS, JavaScript로 웹을 만듭니다.</span><span class="hero__cursor" aria-hidden="true"></span>
+        </p>
+        <p class="hero__desc">
+          외부 라이브러리 없이 순수 웹 기술만으로, 이벤트 → 상태 → 화면이 어떻게 이어지는지
+          직접 구현하며 배우고 있습니다.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#projects">프로젝트 보기</a>
+          <a class="btn btn--ghost" href="#contact">연락하기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section__title" id="about-title" data-reveal>About Me</h2>
+        <div class="about">
+          <figure class="about__photo" data-reveal>
+            <!-- TODO(개인화): 본인 사진으로 교체하고 alt도 함께 수정 -->
+            <img src="images/profile.svg" width="400" height="400"
+                 alt="기본 프로필 일러스트: 사람 실루엣과 코드 기호(&lt;/&gt;)">
+          </figure>
+          <article class="about__body" data-reveal>
+            <!-- TODO(개인화): 자기소개 문구를 본인 이야기로 교체 -->
+            <p>
+              안녕하세요! 웹 개발을 처음부터 차근차근 배우고 있는 <strong>codewhite7777</strong>입니다.
+              화면을 예쁘게 꾸미는 것보다 <em>"사용자가 버튼을 누르면 왜 화면이 바뀌는가"</em>를
+              이해하는 데 집중하고 있습니다.
+            </p>
+            <p>
+              이 페이지는 HTML, CSS, JavaScript만으로 만들었고, GitHub API로 제 저장소 목록을 불러와
+              카드로 보여줍니다.
+            </p>
+            <dl class="about__facts">
+              <div><dt>관심 분야</dt><dd>웹 프론트엔드, 접근성</dd></div>
+              <div><dt>학습 중</dt><dd>DOM · 이벤트 · 비동기 처리</dd></div>
+              <div><dt>다음 목표</dt><dd>React로 상태 기반 UI 만들기</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section class="section section--alt" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 class="section__title" id="skills-title" data-reveal>Skills</h2>
+        <div class="skills">
+          <article class="card skills__group" data-reveal>
+            <h3>Frontend</h3>
+            <ul class="chips">
+              <li>HTML5</li>
+              <li>CSS3 (Flexbox · Grid)</li>
+              <li>JavaScript (ES6+)</li>
+              <li>반응형 웹</li>
+            </ul>
+          </article>
+          <article class="card skills__group" data-reveal>
+            <h3>Tools</h3>
+            <ul class="chips">
+              <li>Git</li>
+              <li>GitHub · GitHub Pages</li>
+              <li>VS Code · Live Server</li>
+              <li>Chrome DevTools</li>
+            </ul>
+          </article>
+          <article class="card skills__group" data-reveal>
+            <h3>Next</h3>
+            <ul class="chips">
+              <li>React</li>
+              <li>REST API 이해</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Projects (GitHub API) ===== -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 class="section__title" id="projects-title" data-reveal>Projects</h2>
+        <p class="section__lead" data-reveal>GitHub API로 불러온 제 저장소 목록입니다.</p>
+
+        <!-- 언어별 필터 버튼 (보너스). JS가 저장소 데이터에서 만들어 넣는다. -->
+        <div class="filters" id="project-filters" role="group" aria-label="언어별 필터" hidden></div>
+
+        <!-- 로딩 / 에러 / 빈 상태 메시지가 렌더링되는 자리 -->
+        <div class="state-box" id="projects-status" role="status" aria-live="polite"></div>
+
+        <!-- 성공 상태: 카드 목록이 렌더링되는 자리 (CSS Grid) -->
+        <div class="projects__grid" id="projects-grid"></div>
+
+        <noscript>
+          <p class="state state--error">
+            프로젝트 목록을 보려면 JavaScript가 필요합니다.
+            <a href="https://github.com/codewhite7777?tab=repositories">GitHub에서 직접 보기</a>
+          </p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 class="section__title" id="contact-title" data-reveal>Contact</h2>
+        <p class="section__lead" data-reveal>궁금한 점이 있다면 남겨 주세요.</p>
+
+        <!-- novalidate: 브라우저 기본 검증 말풍선 대신 우리가 만든 검증(form.js)을 쓴다 -->
+        <form class="form card" id="contact-form" novalidate data-reveal>
+          <div class="field">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" autocomplete="name" required
+                   aria-describedby="name-error" placeholder="홍길동">
+            <p class="field__error" id="name-error"></p>
+          </div>
+          <div class="field">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" autocomplete="email" required
+                   aria-describedby="email-error" placeholder="name@example.com">
+            <p class="field__error" id="email-error"></p>
+          </div>
+          <div class="field">
+            <label for="message">메시지</label>
+            <textarea id="message" name="message" rows="5" required
+                      aria-describedby="message-error" placeholder="10자 이상 입력해 주세요."></textarea>
+            <p class="field__error" id="message-error"></p>
+          </div>
+          <button class="btn btn--primary form__submit" type="submit">보내기</button>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span id="year">2026</span> codewhite7777. All rights reserved.</p>
+      <ul class="site-footer__links">
+        <li><a href="https://github.com/codewhite7777" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <!-- TODO(개인화): 본인 LinkedIn 프로필 주소로 교체 -->
+        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scroll-top" type="button" aria-label="맨 위로 이동">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+</body>
+</html>
