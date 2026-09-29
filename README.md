@@ -97,7 +97,7 @@ Codyssey **웹 기초와 프론트엔드** 과제 — 외부 라이브러리 없
 **내 정보로 바꾸기**
 
 1. `js/config.js`의 `githubUsername` — 프로젝트 카드에 불러올 GitHub 아이디
-2. `index.html`의 `TODO(개인화)` 주석이 붙은 곳 — 이름, 자기소개, 프로필 사진(`images/profile.svg` 교체, `alt`도 함께), LinkedIn 주소
+2. `index.html`의 `TODO(개인화)` 주석이 붙은 곳 — 이름, 자기소개, 프로필 사진(`images/profile.svg` 교체, `alt`도 함께), LinkedIn 주소, 푸터·noscript의 GitHub 링크(아이디를 바꿨다면)
 
 > GitHub API는 인증 없이 **시간당 60회**로 제한됩니다. 짧은 시간에 새로고침을 반복하면 403 응답이 오고, 이때는 에러 상태 UI(`다시 시도` 버튼)가 표시됩니다.
 

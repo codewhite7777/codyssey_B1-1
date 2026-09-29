@@ -744,7 +744,7 @@ fetchRepos()                                     try {
   **GitHub API 레이트 리밋**: 인증 없이는 대개 **시간당 60회**(IP 기준)이고 초과하면 403(때로 429)을 줘요. 정책은 바뀔 수 있어서 공식 문서로 확인하세요. 이 프로젝트는 `describeError`가 "GitHub API 요청 한도(인증 없이 시간당 60회)를 넘었습니다. 잠시 후 다시 시도해 주세요."를 보여 주고 "다시 시도" 버튼을 제공해요. (토큰을 쓰면 한도가 늘지만, 프런트엔드 코드에는 비밀값을 넣으면 안 돼요.)
 - **왜 필요한가**: `ok` 검사가 없으면 404 응답의 `{ "message": "Not Found" }`를 성공 데이터로 착각해 `filter`에서 터지거나 빈 화면이 돼요. 타임아웃이 없으면 스피너가 영원히 돌 수 있어요.
 - **내 코드에서는**: `js/projects.js › fetchRepos()`, `describeError()`, `loadProjects()`(`if (projectsState.status === 'loading') return;`로 연타 방지).
-- **직접 확인해 보기**: (1) Network › `Offline`으로 바꾸고 "다시 시도"를 눌러 에러 화면을 확인. (2) 요청을 우클릭 › **Block request URL** 후 새로고침. (3) Console에서 `(await fetch('https://api.github.com/users/codewhite7777/repos')).status`.
+- **직접 확인해 보기**: (1) Network에서 `repos` 요청을 우클릭 › **Block request URL**(또는 Block request domain) 후 새로고침하면 에러 화면이 나와요. 차단을 풀고 "다시 시도"를 누르면 성공해요. (`Offline` 체크는 이미 열린 페이지에서는 새 요청이 없어 아무 일도 안 일어나고, 켠 채 새로고침하면 페이지 자체가 안 열릴 수 있어서 권하지 않아요.) (3) Console에서 `(await fetch('https://api.github.com/users/codewhite7777/repos')).status`.
 - **스스로 설명해보기**: "fetch는 404일 때 왜 catch로 안 가나요? 그래서 어떻게 처리했나요?"
 
 ## 12. 상태 → 렌더링 패턴 (과제의 핵심)
@@ -812,7 +812,7 @@ render: 보여 줄 에러 = (submitted || touched[필드]) ? errors[필드] : ''
 ```
 
   **왜 버튼을 다시 만들지 않을까요?** `innerHTML`로 버튼을 갈아 끼우면 방금 눌러서 포커스를 가진 버튼이 사라져 포커스가 문서 처음으로 돌아가요. 키보드·스크린리더 사용자는 필터 하나 고를 때마다 처음부터 다시 이동해야 해요. 그래서 언어 목록이 **바뀔 때만**(`renderedFilterKey`와 비교) 버튼을 만들고 평소엔 선택 표시만 바꿔요. `tools/verify.js`도 클릭 후 포커스가 유지되는지 점검해요.
-- **직접 확인해 보기**: Console에서 `document.querySelector('#theme-toggle').click()`을 실행해 `data-theme`과 `aria-pressed`가 함께 바뀌는지 봐요. 필터 칩을 Tab으로 이동해 Enter를 눌러 본 뒤 포커스 테두리가 유지되는지 확인해요. Network › Offline 후 새로고침 → "다시 시도"로 상태 전이(`error → loading → error/success`)를 눈으로 따라가 봐요.
+- **직접 확인해 보기**: Console에서 `document.querySelector('#theme-toggle').click()`을 실행해 `data-theme`과 `aria-pressed`가 함께 바뀌는지 봐요. 필터 칩을 Tab으로 이동해 Enter를 눌러 본 뒤 포커스 테두리가 유지되는지 확인해요. Network에서 `repos` 요청을 차단하고 새로고침 → 차단 해제 → "다시 시도"로 상태 전이(`error → loading → success`)를 눈으로 따라가 봐요.
 - **스스로 설명해보기**: "`empty`와 `error`의 차이는? `touched`와 `submitted`는 왜 둘 다 필요한가요?"
 
 ### 12.6 수동 동기화의 한계와 React 대응표

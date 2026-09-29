@@ -237,15 +237,19 @@ section[id] {
 }
 
 /* 스크롤 60px 이상: JS가 .scrolled 클래스를 붙인다 */
-.site-header.scrolled,
+.site-header.scrolled {
+  background-color: var(--color-header-scrolled);
+  border-bottom-color: var(--color-border);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 모바일 메뉴가 열려 있는 동안에도 헤더 배경을 채운다.
+   :has() 를 모르는 브라우저에서 이 규칙만 무시되도록 위 규칙과 일부러 분리했다. */
 .site-header:has(.nav__menu.active) {
   background-color: var(--color-header-scrolled);
   border-bottom-color: var(--color-border);
   backdrop-filter: blur(8px);
-}
-
-.site-header.scrolled {
-  box-shadow: var(--shadow-sm);
 }
 
 .nav {

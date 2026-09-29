@@ -272,7 +272,7 @@
 - [ ] `??`와 `||`의 차이를 `stars`가 `0`일 때를 예로 설명할 수 있다
 - [ ] 화살표 함수와 `function` 선언을 이 저장소에서 어떤 기준으로 나눠 썼는지 예를 들 수 있다
 - [ ] `node tools/verify.js --static`에서 `R4-2`, `R7-*`가 PASS다
-- [ ] 개념 노트 18장(자가진단)의 JS 문법 문항을 풀어 봤다
+- [ ] 개념 노트 18장의 ④번(화살표 함수 · 구조분해 · `map` / `filter`) 30초 답을 내 말로 해 봤다
 
 ---
 
@@ -432,14 +432,14 @@ index.html  ── 뼈대와 의미 (누가 무엇인지: id, data-*, aria-*)
    ├─▶ css/style.css ── 모양 (변수 → 기본 → 레이아웃 → 컴포넌트 → 섹션 → 반응형)
    │
    └─▶ js/*.js (모두 defer, 위에서 아래 순서로 실행. 전역 스코프를 공유)
-         config.js   기준값 모음 (CONFIG)
-         utils.js    작은 도우미 (escapeHtml, toSafeUrl, sleep, readStorage ...)
-         theme.js    다크 모드          ┐
-         nav.js      햄버거, 부드러운 스크롤 │  각 파일은 init~ 함수를 정의만 한다
-         effects.js  스크롤 반응, 등장, 타자기 │
-         form.js     폼 검증            │
-         projects.js GitHub API, 4상태, 필터 ┘
-         main.js     ── 마지막에 init 함수들을 순서대로 호출 (조립)
+         config.js    기준값 모음 (CONFIG)
+         utils.js     작은 도우미 (escapeHtml, toSafeUrl, sleep, readStorage ...)
+         theme.js     다크 모드            (init~ 함수를 "정의"만 한다)
+         nav.js       햄버거, 부드러운 스크롤   (init~ 함수를 "정의"만 한다)
+         effects.js   스크롤 반응, 등장, 타자기   (init~ 함수를 "정의"만 한다)
+         form.js      폼 검증              (init~ 함수를 "정의"만 한다)
+         projects.js  GitHub API, 4상태, 필터   (init~ 함수를 "정의"만 한다)
+         main.js      마지막에 init~ 함수들을 순서대로 "호출" (조립)
 ```
 
 이 사이트의 핵심은 "이벤트 → 상태 → 렌더링"이 세 곳에서 같은 모양으로 반복된다는 점입니다.

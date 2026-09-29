@@ -105,7 +105,7 @@
 | `fetch` + `async/await`, 엔드포인트 `https://api.github.com/users/{아이디}/repos` | `js/projects.js` › `fetchRepos`, 아이디는 `js/config.js` › `githubUsername` | DevTools › Network에서 요청 확인 | R8-1 | ✅ |
 | **로딩 상태**: 스피너 또는 "로딩 중..." | `js/projects.js` › `renderProjectsStatus` (`case 'loading'`) | Network › Throttling: Slow 3G 후 새로고침 | R8-2 | ✅ |
 | **성공 상태**: 카드 리스트 | `js/projects.js` › `renderProjectCards`, `createProjectCard` | 배포 URL에서 내 저장소가 카드로 표시 | R8-3 👀 | ✅ |
-| **에러 상태**: "프로젝트를 불러올 수 없습니다" + 재시도 버튼 | `js/projects.js` › `case 'error'`, `describeError`, `initProjects`(이벤트 위임) | Network › Offline 후 새로고침 → 에러 → Online 후 "다시 시도" | R8-4, R8-4b | ✅ |
+| **에러 상태**: "프로젝트를 불러올 수 없습니다" + 재시도 버튼 | `js/projects.js` › `case 'error'`, `describeError`, `initProjects`(이벤트 위임) | Network에서 `repos` 요청 차단(Block request URL) → 새로고침 → 에러 → 차단 해제 → "다시 시도" | R8-4, R8-4b | ✅ |
 | **빈 상태**: "표시할 프로젝트가 없습니다" | `js/projects.js` › `case 'empty'` | 저장소가 없는(또는 전부 fork인) 계정으로 확인 | R8-5 | ✅ |
 | `try/catch` 에러 처리 | `js/projects.js` › `loadProjects`(catch), `fetchRepos`(finally) | — | R8-6 | ✅ |
 | 레이트 리밋(403) 시 에러 UI | `js/projects.js` › `describeError` (403/429 분기) | 자동 점검이 403 응답을 흉내 냄 | R8-4 | ✅ |
