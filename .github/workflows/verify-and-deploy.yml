@@ -36,6 +36,8 @@ jobs:
       - name: Browser checks with controlled API responses
         run: python tests/browser_checks.py --channel chrome
       - name: Verify real GitHub API and capture submission screenshots
+        env:
+          CI_GITHUB_TOKEN: ${{ github.token }}
         run: python tests/live_check.py --channel chrome --screenshots
       - name: Preserve test evidence
         if: always()
@@ -100,6 +102,7 @@ jobs:
           python -m playwright install --with-deps chrome
       - name: Check deployed page with real GitHub API
         env:
+          CI_GITHUB_TOKEN: ${{ github.token }}
           SITE_URL: ${{ needs.deploy.outputs.page_url }}
         run: python tests/live_check.py --channel chrome --base-url "$SITE_URL" --report deployed-live.json
       - name: Verify deployed error states, form and responsiveness

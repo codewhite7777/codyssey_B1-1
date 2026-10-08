@@ -2,12 +2,13 @@
 import argparse
 import json
 import os
+import re
 from functools import partial
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
 from playwright.sync_api import sync_playwright, expect
-from browser_checks import QuietHandler
+from browser_checks import QuietHandler, API
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,6 +19,7 @@ def main():
     parser.add_argument("--report", default="live.json")
     parser.add_argument("--screenshots", action="store_true")
     args = parser.parse_args()
+    token = os.environ.get("CI_GITHUB_TOKEN", "")
     server = None
     if args.base_url:
         url = args.base_url
@@ -25,7 +27,7 @@ def main():
         server = ThreadingHTTPServer(("127.0.0.1", 0), partial(QuietHandler, directory=str(ROOT.parent)))
         Thread(target=server.serve_forever, daemon=True).start()
         url = f"http://127.0.0.1:{server.server_port}/{ROOT.name}/"
-    report = {"mode": "original files over HTTP and real unauthenticated GitHub API", "base_url": url,
+    report = {"mode": "original files over HTTP and real GitHub API", "api_auth": "unauthenticated", "base_url": url,
               "code_sha": os.environ.get("GITHUB_SHA", "working-copy"), "passed": False,
               "api_responses": [], "checks": [], "screenshots": [], "errors": []}
     try:
@@ -38,15 +40,31 @@ def main():
             resources = []
             def on_response(response):
                 if "/users/codewhite7777/repos" in response.url:
-                    report["api_responses"].append({"url": response.url, "status": response.status})
+                    report["api_responses"].append({"url": response.url, "status": response.status,
+                        "rate_limit_remaining": response.headers.get("x-ratelimit-remaining"),
+                        "rate_limit_reset": response.headers.get("x-ratelimit-reset")})
                 elif response.url.startswith(url):
                     resources.append({"url": response.url, "status": response.status})
             page.on("response", on_response)
             response = page.goto(url, wait_until="domcontentloaded", timeout=45000)
             assert response.status == 200, f"Page HTTP {response.status}"
             report["checks"].append("HTML served with HTTP 200")
+            expect(page.locator("#projects-panel")).not_to_have_attribute("data-status", "loading", timeout=20000)
+            # 공유 CI IP의 익명 한도 소진 시에만 테스트 요청에 인증을 더합니다.
+            # 응답을 모의 생성하지 않습니다. 실제 GitHub 네트워크 요청을 계속합니다.
+            if (report["api_responses"] and report["api_responses"][-1]["status"] in (403, 429)
+                    and token):
+                report["checks"].append("unauthenticated API limit displayed the error UI")
+                expect(page.locator("#projects-retry")).to_be_visible()
+                def authenticate_api_request(route):
+                    headers = dict(route.request.headers)
+                    headers["authorization"] = f"Bearer {token}"
+                    route.continue_(headers=headers)
+                page.route(API, authenticate_api_request)
+                report["api_auth"] = "CI-only token fallback after anonymous 403/429; not included in website"
+                page.locator("#projects-retry").click()
             expect(page.locator("#projects-panel")).to_have_attribute("data-status", "success", timeout=20000)
-            assert report["api_responses"] and report["api_responses"][0]["status"] == 200
+            assert report["api_responses"] and report["api_responses"][-1]["status"] == 200
             report["repository_names"] = page.locator(".project-card h3").all_text_contents()
             report["checks"].append("real GitHub API returned 200 and cards rendered")
             expect(page.locator("#contact-fields")).to_be_enabled()
@@ -57,6 +75,7 @@ def main():
             # 작은 관찰 대상들을 실제로 지나간 뒤 상단으로 돌아와 전체 페이지를 캡처합니다.
             for element in page.locator(".reveal").all():
                 element.scroll_into_view_if_needed()
+                expect(element).to_have_class(re.compile("is-visible"))
             page.wait_for_timeout(650)
             page.locator(".profile img").scroll_into_view_if_needed()
             page.wait_for_function("document.querySelector('.profile img').naturalWidth > 0")
@@ -92,6 +111,7 @@ def main():
             report["checks"].append("390px mobile has no horizontal overflow")
             for element in page.locator(".reveal").all():
                 element.scroll_into_view_if_needed()
+                expect(element).to_have_class(re.compile("is-visible"))
             page.wait_for_timeout(650)
             page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
             page.wait_for_timeout(200)
@@ -120,8 +140,11 @@ def main():
         if server:
             server.shutdown()
         (ROOT / "test-results").mkdir(exist_ok=True)
-        (ROOT / "test-results" / args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2))
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        serialized = json.dumps(report, ensure_ascii=False, indent=2)
+        if token:
+            serialized = serialized.replace(token, "[REDACTED]")
+        (ROOT / "test-results" / args.report).write_text(serialized)
+        print(serialized)
     return 0 if report["passed"] else 1
 
 if __name__ == "__main__":
