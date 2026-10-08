@@ -1,95 +1,104 @@
-# B1-1 · 나를 소개하는 웹페이지 처음부터 만들기
+# LINK의 포트폴리오 · 코디세이 B1-1
 
-외부 라이브러리 없이 순수 HTML, CSS, JavaScript로 만드는 코디세이 포트폴리오 과제입니다.
+순수 HTML, CSS, JavaScript로 만든 반응형 자기소개 웹사이트입니다. 사용자 이벤트 → 상태 변경 → DOM 갱신 흐름을 메뉴, 다크 모드, 프로젝트 조회, 문의 폼에 적용했습니다.
 
-## 현재 단계
+- 저장소: https://github.com/codewhite7777/codyssey_B1-1
+- GitHub Pages 주소: https://codewhite7777.github.io/codyssey_B1-1/
+- **배포 상태는 Actions의 `deploy`와 `verify-deployed` 성공 여부를 기준으로 확인합니다. 위 주소만으로 배포 완료를 의미하지 않습니다.**
 
-**1-2a단계: 첫 화면의 제목과 자기소개 작성**
+## 사용 기술과 구성
 
-현재는 학습 중인 코드이며 제출 가능한 완성본이 아닙니다. 상세 학습 설명과 이해 점검은 채팅에서 진행하고, 이 README에는 실행 방법과 구현 현황을 기록합니다. 코드 구현 여부와 학습자의 이해 여부는 별도로 확인합니다.
-
-이번 단계에서는 `index.html`의 첫 화면 문구를 작성했습니다. 이름은 LINK로 우선 표기합니다.
-
-- 제목: 안녕하세요. LINK입니다.
-- 소개: 웹페이지 만드는 것을 배우고 있습니다.
-- 소개: 이곳에 저의 소개와 직접 만든 프로젝트를 정리할 예정입니다.
-
-기존 CSS와 JavaScript는 변경하지 않았습니다. `JavaScript 연결 확인 완료`는 앞 단계의 파일 연결 확인용 안내이며, 최종 포트폴리오 소개 문구가 아닙니다. 최종 제출 전에는 이 학습용 안내와 관련 코드를 함께 정리합니다.
-
-Hero의 이동 버튼과 나머지 섹션은 아직 구현하지 않았습니다. Footer에는 기존 학습용 안내만 있으며, 저작권과 소셜 링크 요구사항은 아직 충족하지 않았습니다.
-
-## 사용 기술
-
-- HTML: 문서 구조, 제목과 문단
-- CSS: 외부 스타일시트와 기본 CSS 변수
-- JavaScript: `defer`, `const`, `querySelector`, `textContent`
-- 개발 환경: VS Code + Live Server
-
-## 폴더 구조
+웹사이트 실행에는 외부 라이브러리, 프레임워크, 빌드 또는 패키지 설치가 필요 없습니다. HTML, CSS, 브라우저 표준 JavaScript API만 사용합니다.
 
 ```text
-codyssey_B1-1/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── app.js
-├── images/
-│   └── .gitkeep
-├── .gitignore
-└── README.md
+index.html                 시맨틱 문서, 6개 콘텐츠 영역, 문의 폼
+css/style.css              모바일 퍼스트, Flexbox/Grid, 테마, 애니메이션
+js/app.js                  CONFIG, STATE, 이벤트, render 함수, GitHub API
+images/profile.svg         사진 대신 사용하는 LINK 모노그램
+images/screenshots/        실제 브라우저에서 캡처한 제출용 화면
+.vscode/                   Live Server 권장 확장과 포트 설정
+tests/                     검증용 스크립트 (웹사이트에서 사용하지 않음)
+docs/reports/              검증 실행 결과 (CI 성공 후 생성)
+.github/workflows/         브라우저 검증 → Pages 배포 → 배포본 검증
 ```
 
-`images/.gitkeep`는 나중에 프로필 이미지와 스크린샷을 넣을 폴더를 저장소에 유지하기 위한 빈 파일입니다. 실제 이미지는 아직 없습니다.
+프로필 이미지는 실제 인물 사진이 아닌 이니셜 이미지입니다. 확인되지 않은 개인 경력이나 연락처는 기재하지 않았습니다.
+
+## 구현한 필수 기능
+
+| 요구사항 | 구현 위치 |
+| --- | --- |
+| Hero / About / Skills / Projects / Contact / Footer | `index.html` |
+| 시맨틱 태그, 앵커, alt, label 연결 | `index.html`, 동적 카드의 `article` |
+| CSS 변수, 별도 다크 변수, hover / transition / shadow | `css/style.css` |
+| Flexbox 내비게이션, Grid auto-fit / minmax 카드 | `.nav-layout`, `.projects-grid` |
+| 모바일 퍼스트, 768px / 1024px | CSS 미디어 쿼리 |
+| 햄버거 메뉴, 모바일/데스크톱 전환, Escape | `initNavigation`, `renderMenu` |
+| 부드러운 이동, 맨 위로 버튼, 내비게이션 배경 | `initNavigation`, `updateScrollState`, `renderScroll` |
+| 다크 모드 저장과 복원 | `initTheme`, `toggleTheme`, `renderTheme` |
+| 스크롤 애니메이션 | `initReveal` |
+| 입력·제출 시 필수값/이메일 검사 | `initForm`, `validateField`, `renderForm` |
+| GitHub 요청과 네 가지 UI 상태, 재시도 | `loadProjects`, `renderProjects` |
+| 화살표 함수, 템플릿 리터럴, 구조분해, map / forEach | `js/app.js` |
+
+`var`, HTML의 `onclick`, 인라인 `style`은 사용하지 않습니다. `innerHTML` 카드 생성 전에 외부 텍스트를 이스케이프하고 링크는 HTTPS GitHub 주소만 허용합니다.
+
+## 동작 기준과 범위
+
+| 기준 | 값 |
+| --- | --- |
+| 내비게이션 배경 변경 | `scrollY >= 60px` |
+| 맨 위로 버튼 표시 | `scrollY >= 300px` |
+| 반응형 브레이크포인트 | 768px, 1024px |
+| Intersection Observer threshold | 0.2 (대상 면적 20%) |
+| 요청 타임아웃 | 10초 |
+| GitHub 표시 범위 | 최근 업데이트된 공개 저장소 최대 6개 |
+| 테마 저장 키 | `codyssey-b1-1-theme` |
+| 최초 테마 | 라이트, 유효한 저장값이 있으면 복원 |
+
+요청 주소는 `https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6`입니다. 모든 저장소를 페이지네이션으로 수집하는 기능은 포함하지 않습니다. 전체 저장소 링크는 별도로 제공합니다.
+
+GitHub 비인증 API의 기본 제한은 IP 기준 시간당 60회입니다. 403/429, 다른 HTTP 오류, 네트워크 단절, JSON 오류, 타임아웃을 에러 화면과 재시도로 처리합니다. 평가 중에는 실제 호출 한도를 소진하지 말고 자동 검증의 모의 응답을 사용합니다.
+
+문의 폼은 **학습용**입니다. 이름/이메일/메시지의 공백과 형식을 검사하고 성공 안내를 표시하지만 실제 전송이나 영구 저장은 하지 않습니다. 이메일 형식 검사는 주소의 실제 존재 여부를 확인하는 기능이 아닙니다. 입력 길이 상한은 이름 80자, 이메일 254자, 메시지 3000자이며, 공백이 아닌 최소 한 글자면 필수값 조건을 만족합니다.
+
+언어별 필터, 타이핑 효과, 실제 이메일 전송, 시스템 다크 모드 감지는 선택 항목이므로 제외했습니다. 사용자의 동작 감소 설정은 애니메이션과 부드러운 이동에 반영합니다.
 
 ## 로컬 실행
 
-처음 가져오는 경우:
+VS Code에서 저장소 폴더를 열고 추천 확장인 **Live Server (Ritwick Dey)**를 설치합니다. `index.html`에서 **Open with Live Server**를 사용합니다. 기본 설정 포트는 5500입니다. 사용자 PC에서의 확장 설치와 실행 여부는 별도 확인 사항입니다.
 
-```bash
-git clone https://github.com/codewhite7777/codyssey_B1-1.git
-cd codyssey_B1-1
-```
+## 검증과 배포
 
-이미 복제한 폴더에서는 먼저 `git status`로 로컬 변경 여부를 확인합니다. 작업 트리가 깨끗한 경우 `git pull --ff-only`로 최신 코드를 가져옵니다. 로컬 변경이 있거나 갱신에 실패하면 강제로 덮어쓰지 않고 차이를 먼저 확인합니다.
+1. `tests/static_checks.py`: 파일 구성과 필수 문법 검사.
+2. `tests/browser_checks.py`: 실제 Chrome에서 모의 API 응답으로 로딩·성공·403/429·404·500·빈 상태, 재시도, 타임아웃, XSS 방어, 테마 저장, 메뉴, 320~1440px, 폼, 스크롤을 검사.
+3. `tests/live_check.py`: 원본 HTML/CSS/JS를 HTTP로 열고 **실제 GitHub API**로 프로젝트를 표시하며 데스크톱/모바일/다크 모드 화면을 캡처.
+4. 모든 사전 검증 성공 후 `deploy`가 GitHub Pages에 배포.
+5. `verify-deployed`가 배포된 URL에서 실제 API 및 기능 검증을 다시 실행.
 
-VS Code에서 폴더 전체를 열고, Ritwick Dey의 Live Server 확장을 설치합니다. `index.html`을 우클릭하여 **Open with Live Server**를 실행합니다.
+Python의 Playwright는 **자동 검증에만 쓰는 개발 도구**이며 웹사이트에 포함되거나 브라우저로 전송되지 않습니다. 검증 스크립트는 `requirements-dev.txt`를 사용합니다.
 
-브라우저에서 확인할 예상 결과:
+GitHub Pages 최초 설정이 필요한 경우 저장소 **Settings → Pages → Build and deployment → Source: GitHub Actions**로 지정합니다. 이후 Actions의 **Verify portfolio and deploy → Run workflow**를 실행할 수 있습니다. Pages 최초 활성화는 저장소 관리 권한이 필요한 별도 설정입니다.
 
-- 첫 화면에 `안녕하세요. LINK입니다.`라는 제목과 소개 문단 두 개가 표시됩니다.
-- 외부 CSS로 배경색, 글자색, 여백이 적용됩니다.
-- 기존 상태 문구가 `JavaScript 실행 전입니다.`에서 `JavaScript 연결 확인 완료`로 바뀝니다.
+실행 결과는 `docs/reports/` 및 해당 Actions 실행의 `portfolio-verification`, `deployed-verification` 산출물을 기준으로 확인합니다. 파일만 작성된 상태, 모의 응답 검증, 실제 API 검증, 배포본 검증은 서로 구분합니다.
 
-## 단계별 진행
+## 제출용 스크린샷
 
-| 단계 | 작업 범위 | 현재 상태 |
-| --- | --- | --- |
-| 1-1 | 폴더 구성, 파일 연결, 첫 DOM 변경 | 코드 작성 완료. 실제 브라우저 확인 필요 |
-| 1-2a | 첫 화면의 제목과 자기소개 문구 | 코드 작성 및 정적 검사 완료. 실제 브라우저 확인 필요 |
-| 1-2b | Hero 이동 버튼, About, Skills, Projects, Contact, Footer 완성 및 내비게이션 | 미구현 |
-| 2 | Flexbox, Grid, 모바일 퍼스트, 768px·1024px 분기 | 미구현 |
-| 3 | 햄버거 메뉴, 부드러운 스크롤, 맨 위로 버튼, 스크롤 배경 변경 | 미구현 |
-| 4 | 상태 객체, 다크 모드, localStorage 저장·복원 | 미구현 |
-| 5 | 문의 폼 필수값·이메일 검증, 입력 피드백, 성공 안내 | 미구현 |
-| 6 | GitHub API와 로딩·성공·에러·빈 상태, 재시도 | 미구현 |
-| 7 | Intersection Observer, 통합 검증 | 미구현 |
-| 8 | GitHub Pages 배포, 제출용 스크린샷, 피어 평가 준비 | 미구현 |
+아래 파일은 실제 GitHub API 검증이 성공한 CI에서 생성됩니다. 모의 프로젝트 데이터가 담긴 로컬 미리보기는 제출용 이미지로 사용하지 않습니다.
 
-선택 기능은 필수 구현 이후 검토합니다. 문의 폼의 실제 이메일 전송은 선택 기능이며, 전송을 구현하지 않은 상태에서 전송 완료라고 안내하지 않습니다.
+### 데스크톱
+![데스크톱 포트폴리오](images/screenshots/desktop.png)
 
-## 이번 단계의 실제 검증 범위
+### 모바일
+![모바일 포트폴리오](images/screenshots/mobile.png)
 
-- `node --check js/app.js`: 기존 JavaScript의 문법 검사 통과.
-- 정적 검사 12개 통과: 제목과 소개 문구, 단일 h1, id 중복 여부, JavaScript 대상 유지, `defer` 유지, CSS/JS 파일 존재, 인라인 스타일·이벤트 미사용, 한국어 문서 설정, viewport 존재.
-- CSS와 JavaScript의 Git blob SHA를 대조하여 기존 저장소 코드와 동일함을 확인했습니다.
-- 작업 환경의 Chromium에서 `file://` 주소로 실제 페이지를 열려 했으나 `ERR_BLOCKED_BY_ADMINISTRATOR`가 발생했습니다. 브라우저 렌더링, 외부 파일 실행, 화면 너비별 동작 검증은 완료하지 못했습니다.
-- 사용자 PC의 VS Code / Live Server 실행 여부는 확인하지 않았습니다.
+### 다크 모드
+![다크 모드 포트폴리오](images/screenshots/dark.png)
 
-## 배포 URL
+## 평가에서 설명할 코드 위치
 
-아직 배포하지 않았습니다. 실제 GitHub Pages 배포와 접속 검증 후 URL을 기록합니다.
+`STATE`는 특별한 예약어가 아니라 상태 객체의 이름입니다. 개별 변수로도 구현할 수 있지만 관련 상태를 찾기 쉽게 모았습니다. 상태 변경만으로 화면이 자동 변경되지 않으므로 `renderTheme`, `renderMenu`, `renderProjects`, `renderForm`이 DOM을 갱신합니다.
 
-## 스크린샷
+API 흐름은 `loadProjects` → loading 렌더링 → `fetch`/`response.ok`/JSON 확인 → success·empty·error 상태 변경 → `renderProjects`입니다. 카드 변환은 `items.map(projectCard).join("")`에서 이루어집니다.
 
-데스크톱 / 모바일 / 다크 모드 스크린샷은 각 기능 구현 및 브라우저 검증 이후 추가합니다.
+기능이 실제로 동작하는지와 작성자가 그 기능을 설명할 수 있는지는 별개입니다. 상세 학습과 평가 개념 설명은 완성·검증 후 채팅에서 진행합니다.
