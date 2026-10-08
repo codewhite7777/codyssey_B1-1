@@ -1,0 +1,35 @@
+{
+  "base_url": "https://codewhite7777.github.io/codyssey_B1-1/",
+  "source_sha": "00e29cab2c7270e2465b2ed2ba87dc9277c80bb0",
+  "files": [
+    {
+      "path": "index.html",
+      "expected_sha256": "a0d90e068d5a72b53a283e2851894703f5f92ba2c94ff964b72a623e5187125b",
+      "passed": true,
+      "http_status": 200,
+      "published_sha256": "a0d90e068d5a72b53a283e2851894703f5f92ba2c94ff964b72a623e5187125b"
+    },
+    {
+      "path": "css/style.css",
+      "expected_sha256": "32357fa0d6ae112a1752e68338415eb42f14b91a67f8453ac93bba171b831b6b",
+      "passed": true,
+      "http_status": 200,
+      "published_sha256": "32357fa0d6ae112a1752e68338415eb42f14b91a67f8453ac93bba171b831b6b"
+    },
+    {
+      "path": "js/app.js",
+      "expected_sha256": "e6e092a8927dca544027faa2ebe914d76c1e71290f2694281b1cc7b6c9e5af48",
+      "passed": true,
+      "http_status": 200,
+      "published_sha256": "e6e092a8927dca544027faa2ebe914d76c1e71290f2694281b1cc7b6c9e5af48"
+    },
+    {
+      "path": "images/profile.svg",
+      "expected_sha256": "18dde435df62ccd73cc79d5c2739a5c0fd84841ffc911a273d00a5b7ff39f594",
+      "passed": true,
+      "http_status": 200,
+      "published_sha256": "18dde435df62ccd73cc79d5c2739a5c0fd84841ffc911a273d00a5b7ff39f594"
+    }
+  ],
+  "passed": true
+}

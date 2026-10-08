@@ -1,20 +1,20 @@
 {
   "mode": "original files over HTTP and real GitHub API",
   "api_auth": "unauthenticated",
-  "base_url": "http://127.0.0.1:34503/codyssey_B1-1/",
+  "base_url": "https://codewhite7777.github.io/codyssey_B1-1/",
   "code_sha": "00e29cab2c7270e2465b2ed2ba87dc9277c80bb0",
   "passed": true,
   "api_responses": [
     {
       "url": "https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6",
       "status": 200,
-      "rate_limit_remaining": "44",
+      "rate_limit_remaining": "43",
       "rate_limit_reset": "1791426783"
     },
     {
       "url": "https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6",
       "status": 200,
-      "rate_limit_remaining": "44",
+      "rate_limit_remaining": "43",
       "rate_limit_reset": "1791426783"
     }
   ],
@@ -30,7 +30,11 @@
     "form required/email/success feedback on real page",
     "no uncaught JavaScript exceptions"
   ],
-  "screenshots": [],
+  "screenshots": [
+    "images/screenshots/desktop.png",
+    "images/screenshots/dark.png",
+    "images/screenshots/mobile.png"
+  ],
   "errors": [],
   "browser": "155.0.8059.39",
   "repository_names": [
@@ -43,43 +47,43 @@
   ],
   "resources": [
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/css/style.css",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/css/style.css",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/js/app.js",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/js/app.js",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/images/profile.svg",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/images/profile.svg",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/images/profile.svg",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/images/profile.svg",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/css/style.css",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/css/style.css",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/js/app.js",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/js/app.js",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/images/profile.svg",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/images/profile.svg",
       "status": 200
     },
     {
-      "url": "http://127.0.0.1:34503/codyssey_B1-1/images/profile.svg",
+      "url": "https://codewhite7777.github.io/codyssey_B1-1/images/profile.svg",
       "status": 200
     }
   ]
