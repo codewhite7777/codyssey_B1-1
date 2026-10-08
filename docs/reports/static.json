@@ -1,0 +1,138 @@
+[
+  {
+    "name": "required files",
+    "passed": true
+  },
+  {
+    "name": "Korean document",
+    "passed": true
+  },
+  {
+    "name": "viewport",
+    "passed": true
+  },
+  {
+    "name": "semantic structure",
+    "passed": true
+  },
+  {
+    "name": "all content regions",
+    "passed": true
+  },
+  {
+    "name": "single h1",
+    "passed": true
+  },
+  {
+    "name": "unique ids",
+    "passed": true
+  },
+  {
+    "name": "valid anchor targets",
+    "passed": true
+  },
+  {
+    "name": "meaningful image alt",
+    "passed": true
+  },
+  {
+    "name": "local image exists",
+    "passed": true
+  },
+  {
+    "name": "external CSS",
+    "passed": true
+  },
+  {
+    "name": "external deferred JS",
+    "passed": true
+  },
+  {
+    "name": "no inline style/events/scripts",
+    "passed": true
+  },
+  {
+    "name": "form labels and required inputs",
+    "passed": true
+  },
+  {
+    "name": "email type",
+    "passed": true
+  },
+  {
+    "name": "no runtime dependencies",
+    "passed": true
+  },
+  {
+    "name": "CSS variables and dark theme",
+    "passed": true
+  },
+  {
+    "name": "Flexbox and Grid",
+    "passed": true
+  },
+  {
+    "name": "mobile-first breakpoints",
+    "passed": true
+  },
+  {
+    "name": "hover transition shadow",
+    "passed": true
+  },
+  {
+    "name": "no var",
+    "passed": true
+  },
+  {
+    "name": "DOM selection and content",
+    "passed": true
+  },
+  {
+    "name": "classList methods",
+    "passed": true
+  },
+  {
+    "name": "active menu toggle",
+    "passed": true
+  },
+  {
+    "name": "all required events",
+    "passed": true
+  },
+  {
+    "name": "preventDefault",
+    "passed": true
+  },
+  {
+    "name": "ES6 and array methods",
+    "passed": true
+  },
+  {
+    "name": "state and localStorage",
+    "passed": true
+  },
+  {
+    "name": "fetch async await catch",
+    "passed": true
+  },
+  {
+    "name": "API statuses and rate limit",
+    "passed": true
+  },
+  {
+    "name": "Intersection Observer",
+    "passed": true
+  },
+  {
+    "name": "safe external content",
+    "passed": true
+  },
+  {
+    "name": "reduced motion",
+    "passed": true
+  },
+  {
+    "name": "JavaScript syntax",
+    "passed": true
+  }
+]

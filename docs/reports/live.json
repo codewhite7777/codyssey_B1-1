@@ -1,0 +1,90 @@
+{
+  "mode": "original files over HTTP and real GitHub API",
+  "api_auth": "unauthenticated",
+  "base_url": "http://127.0.0.1:40511/codyssey_B1-1/",
+  "code_sha": "ba3c4a7c78f65c455fecec708bbc0695e8e15f44",
+  "passed": true,
+  "api_responses": [
+    {
+      "url": "https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6",
+      "status": 200,
+      "rate_limit_remaining": "55",
+      "rate_limit_reset": "1791424641"
+    },
+    {
+      "url": "https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6",
+      "status": 200,
+      "rate_limit_remaining": "55",
+      "rate_limit_reset": "1791424641"
+    }
+  ],
+  "checks": [
+    "HTML served with HTTP 200",
+    "real GitHub API returned 200 and cards rendered",
+    "defer script loaded and initialized form",
+    "external CSS loaded: Flexbox and Grid applied",
+    "relative asset paths and profile SVG loaded",
+    "native localStorage retained dark mode after reload",
+    "mobile menu open/close on real page",
+    "390px mobile has no horizontal overflow",
+    "form required/email/success feedback on real page",
+    "no uncaught JavaScript exceptions"
+  ],
+  "screenshots": [
+    "images/screenshots/desktop.png",
+    "images/screenshots/dark.png",
+    "images/screenshots/mobile.png"
+  ],
+  "errors": [],
+  "browser": "155.0.8059.39",
+  "repository_names": [
+    "codyssey_B1-1 ↗ (새 탭)",
+    "codyssey_B6-1 ↗ (새 탭)",
+    "codyssey_B5-2 ↗ (새 탭)",
+    "codyssey_B5-1 ↗ (새 탭)",
+    "codyssey_B4-2 ↗ (새 탭)",
+    "codyssey_B4-1 ↗ (새 탭)"
+  ],
+  "resources": [
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/css/style.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/js/app.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/images/profile.svg",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/images/profile.svg",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/css/style.css",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/js/app.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/images/profile.svg",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:40511/codyssey_B1-1/images/profile.svg",
+      "status": 200
+    }
+  ]
+}

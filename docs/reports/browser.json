@@ -1,0 +1,144 @@
+{
+  "mode": "HTTP with mocked GitHub responses",
+  "browser": "155.0.8059.39",
+  "channel": "chrome",
+  "code_sha": "ba3c4a7c78f65c455fecec708bbc0695e8e15f44",
+  "results": [
+    {
+      "name": "success cards, fallbacks and image",
+      "status": "passed"
+    },
+    {
+      "name": "loading then success",
+      "status": "passed"
+    },
+    {
+      "name": "empty response",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP 403 error UI",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP 429 error UI",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP 404 error UI",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP 500 error UI",
+      "status": "passed"
+    },
+    {
+      "name": "offline/network error",
+      "status": "passed"
+    },
+    {
+      "name": "malformed JSON",
+      "status": "passed"
+    },
+    {
+      "name": "unexpected response shape",
+      "status": "passed"
+    },
+    {
+      "name": "retry recovers from failure",
+      "status": "passed"
+    },
+    {
+      "name": "external HTML escaped and unsafe URL rejected",
+      "status": "passed"
+    },
+    {
+      "name": "10 second request timeout",
+      "status": "passed"
+    },
+    {
+      "name": "theme click updates state DOM CSS",
+      "status": "passed"
+    },
+    {
+      "name": "native localStorage persistence after reload",
+      "status": "passed"
+    },
+    {
+      "name": "invalid saved theme fallback",
+      "status": "passed"
+    },
+    {
+      "name": "storage failure does not break app",
+      "status": "passed"
+    },
+    {
+      "name": "mobile menu toggle Escape and anchor close",
+      "status": "passed"
+    },
+    {
+      "name": "mobile desktop mobile menu state",
+      "status": "passed"
+    },
+    {
+      "name": "60px 300px boundaries and back to top",
+      "status": "passed"
+    },
+    {
+      "name": "smooth anchor arrives below fixed header",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 320px",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 390px",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 767px",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 768px",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 1024px",
+      "status": "passed"
+    },
+    {
+      "name": "responsive layout 1440px",
+      "status": "passed"
+    },
+    {
+      "name": "form required whitespace email correction success no transmission",
+      "status": "passed"
+    },
+    {
+      "name": "Intersection Observer reveals element",
+      "status": "passed"
+    },
+    {
+      "name": "reduced motion keeps content visible",
+      "status": "passed"
+    },
+    {
+      "name": "missing Intersection Observer fallback",
+      "status": "passed"
+    },
+    {
+      "name": "keyboard skip link",
+      "status": "passed"
+    },
+    {
+      "name": "no uncaught JavaScript exceptions",
+      "status": "passed"
+    }
+  ],
+  "uncaught_errors": [],
+  "passed": 33,
+  "failed": 0,
+  "skipped": 0
+}
