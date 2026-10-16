@@ -2,7 +2,7 @@
 
 평가 체크리스트 항목마다 **무엇을 보여주고, 어떻게 답할지**를 정리합니다. `app.js 3번`처럼 적은 번호는 [js/app.js](../js/app.js)의 구역 번호입니다.
 
-[← README](../README.md)
+[← README](../README.md) · [개념 정리 (그림)](concepts.md)
 
 ---
 
@@ -16,7 +16,7 @@
 | 2 | 배포 URL을 열고 **2단계** 반응형: 폭을 줄여 햄버거가 나오는 것 | 항목 1, 4 |
 | 3 | **3단계** 다크 모드: 클릭 → 새로고침 → 유지 | 항목 1, 3 |
 | 4 | **4단계** 메뉴, 부드러운 스크롤, 맨 위로, 애니메이션 | 항목 1 |
-| 5 | **5단계** API 네 가지 상태 (Offline → 다시 시도, 콘솔로 빈 상태) | 항목 1, 3, 4 |
+| 5 | **5단계** API 네 가지 상태 (api.github.com 차단 → 다시 시도, 콘솔로 빈 상태) | 항목 1, 3, 4 |
 | 6 | **6단계** 폼: 빈 칸 제출, 이메일 `abc` | 항목 1, 3 |
 | 7 | VS Code에서 `app.js`를 열고 아래 항목 2~4 질문에 답변 | 항목 2~4 |
 
@@ -40,7 +40,7 @@
 
 ### HTML, CSS, JS를 파일로 나눈 이유와 각 역할
 
-**보여줄 곳**: [README 파일 구조](../README.md#파일-구조-역할마다-파일을-나눈다), [index.html 9~10줄](../index.html#L9-L10)
+**보여줄 곳**: [README 파일 구조](../README.md#파일-구조-역할마다-파일을-나눈다), [index.html 11~13줄](../index.html#L11-L13), [개념 1 그림](concepts.md#1-html-css-js를-왜-나누나-defer는-뭔가)
 
 | 파일 | 역할 |
 |---|---|
@@ -55,7 +55,7 @@
 
 ### 시맨틱 태그를 쓴 기준
 
-**보여줄 곳**: [README 화면 구조](../README.md#화면-구조-시맨틱-태그로-영역을-나눈다)
+**보여줄 곳**: [README 화면 구조](../README.md#화면-구조-시맨틱-태그로-영역을-나눈다), [개념 2 그림](concepts.md#2-시맨틱-태그-태그-이름이-곧-역할)
 
 **말하기**
 > "`div`만 쓰면 태그만 봐서는 어디가 메뉴고 어디가 본문인지 모릅니다. 사이트 머리말은 `header`, 이동 메뉴는 `nav`, 핵심 내용은 `main`, 제목이 붙는 주제 묶음은 `section`, 맨 아래는 `footer`로 했습니다. 프로젝트 카드는 하나만 떼어 놔도 뜻이 통해서 `article`입니다. 스크린 리더나 검색 엔진도 이 태그로 구조를 파악합니다."
@@ -64,7 +64,7 @@
 
 ### CSS 변수(:root)의 이점
 
-**보여줄 곳**: [style.css 1번](../css/style.css#L4-L44)
+**보여줄 곳**: [style.css 1번](../css/style.css#L6-L52), [개념 3 그림](concepts.md#3-css-변수와-다크-모드-그리고-localstorage)
 
 ```css
 :root               { --color-bg: #fafbf8; --color-text: #172721; }
@@ -79,7 +79,7 @@ body { background: var(--color-bg); color: var(--color-text); }
 
 ### onclick 대신 addEventListener를 쓴 이유
 
-**보여줄 곳**: `index.html`에 `onclick`이 없는 것, [app.js 3번](../js/app.js#L47-L51)
+**보여줄 곳**: `index.html`에 `onclick`이 없는 것, [app.js 3번](../js/app.js#L60-L65), [개념 6 그림](concepts.md#6-dom-선택과-이벤트-찾아서-붙인다)
 
 | | `onclick` 속성 | `addEventListener` |
 |---|---|---|
@@ -96,7 +96,7 @@ body { background: var(--color-bg); color: var(--color-text); }
 
 ### 이벤트 → 상태 변경 → 화면 업데이트 따라가기
 
-**보여줄 곳**: [app.js 1번 STATE](../js/app.js#L11-L22), [3번 다크 모드](../js/app.js#L39-L51)
+**보여줄 곳**: [app.js 1번 STATE](../js/app.js#L19-L31), [3번 다크 모드](../js/app.js#L50-L65), [개념 7 그림](concepts.md#7-이벤트--상태-변경--화면-업데이트)
 
 다크 모드로 따라가기:
 
@@ -125,7 +125,7 @@ const renderTheme = () => {
 
 ### async/await와 try/catch로 성공/실패 나누기
 
-**보여줄 곳**: [app.js 8번 `loadProjects`](../js/app.js#L142-L164)
+**보여줄 곳**: [app.js 8번 `loadProjects`](../js/app.js#L172-L199), [개념 9 그림](concepts.md#9-비동기-fetch-asyncawait-trycatch)
 
 ```js
 const loadProjects = async () => {
@@ -153,7 +153,7 @@ const loadProjects = async () => {
 
 ### 배열 메서드로 GitHub 데이터 → 카드
 
-**보여줄 곳**: [app.js 8번 `createCard`, `renderProjects`](../js/app.js#L120-L140)
+**보여줄 곳**: [app.js 8번 `createCard`, `renderProjects`](../js/app.js#L141-L170), [개념 8 그림](concepts.md#8-es6-문법과-배열-메서드-github-데이터--카드)
 
 | 단계 | 코드 | 결과 |
 |---|---|---|
@@ -176,19 +176,19 @@ return `<article class="project-card"><h3><a href="${url}">${name}</a></h3> ...`
 
 ### Flexbox와 Grid를 어디에, 왜
 
-**보여줄 곳**: [`.nav`](../css/style.css#L104-L109), [`.project-grid`](../css/style.css#L182-L186)
+**보여줄 곳**: [`.nav`](../css/style.css#L114-L121), [`.project-grid`](../css/style.css#L194-L203), [개념 4 그림](concepts.md#4-flexbox와-grid-한-줄이냐-바둑판이냐)
 
 | | 어디에 | 왜 |
 |---|---|---|
-| Flexbox | 네비게이션 (로고 · 메뉴 · 버튼), 히어로 버튼 줄, 푸터 | **한 줄**로 늘어선 것을 정렬. `justify-content: space-between`으로 로고는 왼쪽, 메뉴는 오른쪽 |
+| Flexbox | 네비게이션 (로고 · 메뉴 · 버튼), 히어로 버튼 줄, 푸터 | **한 줄**로 늘어선 것을 정렬. `justify-content: space-between`으로 로고는 왼쪽 끝, 버튼은 오른쪽 끝 (메뉴는 `margin-left: auto`로 버튼 옆에 붙임) |
 | Grid | 프로젝트 카드, 기술 카드 | **행과 열**이 있는 바둑판. 카드 크기가 줄마다 맞음 |
 
 ```css
-.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 ```
 
 **말하기**
-> "네비게이션은 한 줄에 놓고 양끝으로 벌리기만 하면 돼서 Flexbox를 썼습니다. 카드는 가로세로가 맞는 격자라 Grid를 썼습니다. `auto-fit, minmax(300px, 1fr)`은 '카드 하나가 최소 300px이 되게, 들어가는 만큼 열을 만들어라'라서 미디어 쿼리 없이 폭에 따라 3열 → 2열 → 1열로 바뀝니다."
+> "네비게이션은 한 줄에 놓고 양끝으로 벌리기만 하면 돼서 Flexbox를 썼습니다. 카드는 가로세로가 맞는 격자라 Grid를 썼습니다. `auto-fit, minmax(280px, 1fr)`은 '카드 하나가 최소 280px이 되게, 들어가는 만큼 열을 만들어라'라서 미디어 쿼리 없이 폭에 따라 3열 → 2열 → 1열로 바뀝니다."
 
 ---
 
@@ -196,7 +196,7 @@ return `<article class="project-card"><h3><a href="${url}">${name}</a></h3> ...`
 
 ### STATE 객체를 따로 만든 이유 (그냥 변수로 하면 안 되나)
 
-**보여줄 곳**: [app.js 1번](../js/app.js#L11-L22), README [5단계 빈 상태](../README.md#5단계-github-api-네-가지-상태-확인)
+**보여줄 곳**: [app.js 1번](../js/app.js#L19-L31), README [5단계 빈 상태](../README.md#5단계-github-api-네-가지-상태-확인), [개념 7 그림](concepts.md#7-이벤트--상태-변경--화면-업데이트)
 
 **말하기**
 > "화면을 결정하는 값을 STATE 한 곳에 모아서, **화면이 왜 이렇게 보이는지는 STATE만 보면** 알 수 있게 했습니다. 규칙은 '이벤트는 STATE만 바꾸고, 화면은 render 함수만 바꾼다'입니다. 변수를 흩어 놓거나 이벤트 핸들러에서 DOM을 직접 고치면, 같은 화면을 여러 곳에서 고치게 돼 어긋나기 쉽습니다. 예를 들어 콘솔에서 `STATE.projectStatus = "empty"; renderProjects();`만 해도 빈 상태 화면이 나옵니다. React의 state와 render가 이 방식입니다."
@@ -205,7 +205,7 @@ return `<article class="project-card"><h3><a href="${url}">${name}</a></h3> ...`
 
 ### 반응형을 모바일 퍼스트로 작성한 이유
 
-**보여줄 곳**: [style.css 2~4번(기본=모바일)과 5번 미디어 쿼리](../css/style.css#L251)
+**보여줄 곳**: [style.css 2~4번 기본 = 모바일](../css/style.css#L54-L265), [5번 미디어 쿼리](../css/style.css#L267-L294), [개념 5 그림](concepts.md#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기)
 
 ```css
 .nav-menu { display: none; }              /* 기본: 모바일 → 메뉴 숨김 */

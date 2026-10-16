@@ -1,19 +1,24 @@
 <!DOCTYPE html>
+<!-- index.html: 페이지의 "내용과 구조"만 담당. 모양은 css/, 동작은 js/ [개념 1] -->
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
+    <!-- 휴대폰에서도 화면 폭 그대로 그리기 (없으면 데스크톱 화면을 축소해서 보여줌) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LINK | 나를 소개하는 웹페이지</title>
     <link rel="icon" href="images/profile.svg" type="image/svg+xml">
-    <!-- 스타일은 css/, 동작은 js/로 분리. defer: HTML을 다 읽은 뒤 JS 실행 -->
+    <!-- 외부 스타일시트 연결 -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- defer: HTML을 끝까지 읽은 뒤 JS 실행 → JS가 찾는 요소가 이미 있음 [개념 1] -->
     <script src="js/app.js" defer></script>
   </head>
   <body>
-    <!-- header > nav: 사이트 전체에 반복되는 머리말과 메뉴 -->
+    <!-- 시맨틱 태그: 태그 이름만 보고도 영역의 역할을 알 수 있게 [개념 2] -->
+    <!-- header: 사이트 머리말 / nav: 다른 곳으로 이동하는 메뉴 -->
     <header class="header">
       <nav class="nav container">
         <a class="logo" href="#hero">LINK.</a>
+        <!-- 앵커 링크: href="#about" → id="about"인 section으로 이동 -->
         <ul class="nav-menu">
           <li><a href="#about">소개</a></li>
           <li><a href="#skills">기술</a></li>
@@ -21,7 +26,9 @@
           <li><a href="#contact">문의</a></li>
         </ul>
         <div class="nav-buttons">
+          <!-- onclick 속성 없음: 클릭 동작은 app.js에서 addEventListener로 연결 [개념 6] -->
           <button class="theme-button" type="button">다크 모드</button>
+          <!-- 햄버거 버튼: 줄 3개(span)를 CSS로 그림. 글자가 없어 aria-label로 이름을 붙임 -->
           <button class="menu-button" type="button" aria-label="메뉴 열기">
             <span></span><span></span><span></span>
           </button>
@@ -29,9 +36,11 @@
       </nav>
     </header>
 
-    <!-- main: 이 페이지의 핵심 내용. section마다 제목(h1/h2)이 하나씩 -->
+    <!-- main: 이 페이지의 핵심 내용 (페이지에 하나) -->
     <main>
-      <!-- 1. Hero: 인사말 + CTA 버튼 -->
+      <!-- section: 제목이 붙는 주제 묶음. 과제의 6개 섹션 = hero, about, skills, projects, contact, footer -->
+
+      <!-- 1. Hero: 인사말 + CTA(행동 유도) 버튼 -->
       <section class="hero" id="hero">
         <div class="container">
           <p class="eyebrow">PORTFOLIO</p>
@@ -47,6 +56,8 @@
       <!-- 2. About: 자기소개 + 프로필 이미지 -->
       <section class="section section-tinted" id="about">
         <div class="container about">
+          <!-- alt: 이미지가 안 보일 때, 화면 낭독기가 읽을 때 쓰는 설명 -->
+          <!-- reveal: 스크롤해서 보이면 나타나는 애니메이션 대상 [개념 10] -->
           <img class="profile reveal" src="images/profile.svg" alt="LINK의 이니셜 L을 그린 프로필 이미지" width="240" height="240">
           <div class="reveal">
             <h2>저를 소개합니다</h2>
@@ -56,7 +67,7 @@
         </div>
       </section>
 
-      <!-- 3. Skills: 기술 스택 목록 -->
+      <!-- 3. Skills: 기술 스택 목록 (목록이라 ul/li) -->
       <section class="section" id="skills">
         <div class="container">
           <h2>기술 스택</h2>
@@ -81,11 +92,12 @@
         </div>
       </section>
 
-      <!-- 4. Projects: GitHub API로 받은 저장소를 JS가 카드(article)로 채움 -->
+      <!-- 4. Projects: 처음엔 비어 있음. JS가 GitHub API로 받은 저장소를 <article> 카드로 채움 [개념 8, 9] -->
       <section class="section section-tinted" id="projects">
         <div class="container">
           <h2>프로젝트</h2>
           <p class="muted">GitHub API에서 최근 업데이트된 저장소를 가져옵니다.</p>
+          <!-- 상태 표시 영역: hidden 속성을 JS가 켜고 끔 (로딩 = 스피너, 에러 = 다시 시도 버튼) -->
           <div class="project-status">
             <span class="spinner" hidden></span>
             <p class="project-message"></p>
@@ -95,12 +107,15 @@
         </div>
       </section>
 
-      <!-- 5. Contact: 문의 폼. label의 for와 input의 id를 맞춤 -->
+      <!-- 5. Contact: 문의 폼 -->
       <section class="section" id="contact">
         <div class="container">
           <h2>문의하기</h2>
           <p class="muted">학습용 폼입니다. 입력을 검사만 하고 실제로 전송하지는 않습니다.</p>
+          <!-- novalidate: 브라우저 기본 검사 말풍선을 끄고, JS가 직접 검사해 입력칸 아래에 표시 -->
           <form class="contact-form" novalidate>
+            <!-- label의 for = input의 id → 글자를 눌러도 입력칸이 선택되고, 화면 낭독기가 이름을 읽음 -->
+            <!-- name: JS에서 input.name으로 어느 칸인지 구분 (STATE.formErrors의 키와 같음) -->
             <div class="field">
               <label for="name">이름</label>
               <input id="name" name="name" type="text">
@@ -123,14 +138,16 @@
       </section>
     </main>
 
-    <!-- 6. Footer: 저작권 + 소셜 링크 -->
+    <!-- 6. Footer: 페이지 맨 아래 부가 정보 (저작권 + 소셜 링크) -->
     <footer class="footer">
       <div class="container footer-inner">
         <p>© 2026 LINK</p>
+        <!-- target="_blank": 새 탭, rel="noopener": 새 탭이 이 페이지를 조작하지 못하게 -->
         <a href="https://github.com/codewhite7777" target="_blank" rel="noopener">GitHub</a>
       </div>
     </footer>
 
+    <!-- 맨 위로 버튼: CSS로 숨겨 두고, 300px 이상 스크롤하면 JS가 show 클래스를 붙임 -->
     <button class="top-button" type="button" aria-label="맨 위로">↑</button>
   </body>
 </html>
