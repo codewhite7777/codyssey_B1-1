@@ -1,117 +1,344 @@
-# LINK의 포트폴리오 · 코디세이 B1-1
+# B1-1 · 나를 소개하는 웹페이지 처음부터 만들기
 
-순수 HTML, CSS, JavaScript로 만든 반응형 자기소개 웹사이트입니다. 사용자 이벤트 → 상태 변경 → DOM 갱신을 메뉴, 다크 모드, 프로젝트 조회, 문의 폼에 적용했습니다.
+| 분야 | 구분 | 학습시간 | 필수/선택 |
+|---|---|---|---|
+| AI/SW 기초 | 웹 기초와 프론트엔드 | 80시간 | 필수 |
 
-- **배포 사이트:** https://codewhite7777.github.io/codyssey_B1-1/
-- **GitHub 저장소:** https://github.com/codewhite7777/codyssey_B1-1
-- **원본 코드:** `main` / **배포 파일:** `gh-pages`의 루트
+**순수 HTML / CSS / JavaScript (라이브러리 없음) / 범위: 필수 요구사항만 (보너스 제외)**
 
-**2026-10-08 검증:** Google Chrome 155.0.8059.39에서 정적 검사 34/34, 원본 파일 기능 검사 33/33, 공개 배포본 기능 검사 33/33 통과. 배포 파일 4개의 원본 일치 확인. 실제 공개 사이트에서 GitHub API 비인증 200 응답, 테마 저장·복원, 폼 검증 확인.
+- **배포 URL**: https://codewhite7777.github.io/codyssey_B1-1/
+- **저장소**: https://github.com/codewhite7777/codyssey_B1-1
 
-- 배포 성공 실행: https://github.com/codewhite7777/codyssey_B1-1/actions/runs/37714065893
-- 최종 검증 실행: https://github.com/codewhite7777/codyssey_B1-1/actions/runs/37714325255
+이 README는 세 부분으로 되어 있습니다.
 
-## 사용 기술과 파일 역할
+| 순서 | 섹션 | 내용 |
+|---|---|---|
+| 1 | [구조 설계](#구조-설계) | 파일을 어떻게 나눴고, 화면과 JS 코드를 어떤 구조로 짰는지 |
+| 2 | [실행과 확인 흐름](#실행과-확인-흐름) | 레포 받기부터 기능 하나씩 확인하는 7단계 |
+| 3 | [과제 요구사항 대응](#과제-요구사항-대응) | 과제 문서 1~8의 요구마다 어디에 구현했는지 |
 
-웹사이트 실행에는 패키지 설치, 빌드, 외부 프레임워크가 필요 없습니다. React, Vue, jQuery, Bootstrap, Tailwind를 사용하지 않습니다.
+> **평가하시는 분은 [구조 설계](#구조-설계)로 전체 모양을 먼저 보고, [실행과 확인 흐름](#실행과-확인-흐름)을 1단계부터 따라 하면 됩니다.**
+
+| 함께 보는 문서 | 내용 |
+|---|---|
+| [docs/evaluation.md](docs/evaluation.md) | 평가 체크리스트 항목 1~4마다 보여줄 코드 위치와 말하기 예시 |
+
+## 진행 상황
+
+| 단계 | 할 일 | 파일 | 상태 |
+|---|---|---|---|
+| A. HTML | 시맨틱 태그로 6개 섹션 구조 | `index.html` | ✅ |
+| B. CSS | 변수, 다크 모드, Flexbox/Grid, 모바일 퍼스트 반응형 | `css/style.css` | ✅ |
+| C. JS 인터랙션 | 다크 모드, 햄버거 메뉴, 부드러운 스크롤, 맨 위로, 스크롤 애니메이션 | `js/app.js` 3~7 | ✅ |
+| D. JS API | GitHub API, 로딩/성공/에러/빈 상태 | `js/app.js` 8 | ✅ |
+| E. JS 폼 | 필수값, 이메일 형식 검사 | `js/app.js` 9 | ✅ |
+| F. 배포 | GitHub Pages, 스크린샷 | [배포 URL](https://codewhite7777.github.io/codyssey_B1-1/), `images/screenshots/` | ✅ |
+
+---
+
+## 구조 설계
+
+### 파일 구조: 역할마다 파일을 나눈다
 
 ```text
-index.html                 시맨틱 문서, 여섯 콘텐츠 영역, 문의 폼
-css/style.css              모바일 퍼스트, Flexbox/Grid, 테마, 애니메이션
-js/app.js                  CONFIG, STATE, 이벤트, render 함수, GitHub API
-images/profile.svg         실제 인물 사진이 아닌 LINK 이니셜 프로필
-images/screenshots/        실제 사이트의 데스크톱/모바일/다크 모드 화면
-.vscode/                   Live Server 권장 확장과 포트 설정
-tests/                     자동 검증 전용 Python 스크립트
-docs/reports/              실제 실행 결과
-.github/workflows/         원본 파일 및 공개 배포 사이트 검증
+codyssey_B1-1/
+├── index.html           내용과 구조 (무엇이 있나)
+├── css/
+│   └── style.css        모양 (어떻게 보이나)
+├── js/
+│   └── app.js           동작 (클릭하면 무엇이 바뀌나)
+├── images/
+│   ├── profile.svg      About 프로필 이미지
+│   └── screenshots/     제출용 스크린샷
+├── docs/
+│   └── evaluation.md    평가 준비
+└── .vscode/             Live Server 추천 확장과 포트 설정
 ```
 
-Python/Playwright는 **검증용 개발 도구**이며 웹사이트 실행에 쓰이지 않고 `gh-pages`에도 포함되지 않습니다. 사용자 정보는 확인된 이름 LINK와 GitHub 계정만 사용하며 확인되지 않은 경력·연락처를 만들지 않았습니다.
+| 파일 | 역할 | 나눠서 좋은 점 |
+|---|---|---|
+| `index.html` | 내용과 구조 | 글을 고칠 때 HTML만 보면 됨 |
+| `css/style.css` | 색, 배치, 반응형 | 디자인을 바꿔도 HTML, JS는 그대로 |
+| `js/app.js` | 이벤트, 상태, 화면 갱신 | 동작 코드가 한곳에 모여 흐름을 따라가기 쉬움 |
 
-## 필수 요구사항 구현 위치
+HTML에서는 `<link rel="stylesheet" href="css/style.css">`와 `<script src="js/app.js" defer>`로 두 파일을 연결합니다. `defer`는 **HTML을 다 읽은 뒤에** JS를 실행하라는 뜻이라, JS가 `querySelector`로 요소를 찾을 때 요소가 이미 있습니다.
 
-| 요구사항 | 코드 위치 |
-| --- | --- |
-| Hero / About / Skills / Projects / Contact / Footer | `index.html` |
-| 시맨틱 태그, 앵커, 이미지 alt, label의 for-id 연결 | HTML 및 동적 카드의 `article` |
-| CSS 색상·글꼴·간격 변수, 별도 다크 변수 | `:root`, `[data-theme="dark"]` |
-| Flexbox 내비게이션 / Grid auto-fit·minmax 카드 | `.nav-layout`, `.projects-grid` |
-| 모바일 퍼스트, 768px·1024px 분기 | CSS 미디어 쿼리 |
-| 버튼·카드 hover / transition / box-shadow | CSS 공통 버튼·카드 규칙 |
-| 햄버거 메뉴, active 토글, Escape, 화면 크기 전환 | `initNavigation`, `renderMenu` |
-| 부드러운 이동, 맨 위로 버튼, 내비게이션 배경 | `initNavigation`, `updateScrollState`, `renderScroll` |
-| 다크 모드 전환·저장·새로고침 시 복원 | `initTheme`, `toggleTheme`, `renderTheme` |
-| Intersection Observer 스크롤 애니메이션 | `initReveal` |
-| 필수값·이메일 검사, 입력 즉시 오류 갱신 | `initForm`, `validateField`, `renderForm` |
-| GitHub API, 로딩·성공·에러·빈 상태, 재시도 | `loadProjects`, `renderProjects` |
-| 화살표 함수·템플릿 리터럴·구조분해·map·forEach | `js/app.js` |
+### 화면 구조: 시맨틱 태그로 영역을 나눈다
 
-외부 JS를 `defer`로 연결하며 `var`, HTML `onclick`, 인라인 `style`은 사용하지 않습니다. 외부 텍스트를 이스케이프한 후 카드 HTML을 만들고, 저장소 링크는 HTTPS GitHub 주소만 허용합니다.
+```text
+<header>  ─ <nav>  로고 · 메뉴(앵커 링크) · 다크 모드 버튼 · 햄버거 버튼
+<main>
+  <section id="hero">      인사말, CTA 버튼 2개
+  <section id="about">     프로필 이미지(alt), 자기소개
+  <section id="skills">    기술 스택 카드 4개
+  <section id="projects">  GitHub API 결과 → JS가 <article> 카드로 채움
+  <section id="contact">   문의 폼 (label for ↔ input id)
+</main>
+<footer>  ─ 저작권, GitHub 링크
+```
 
-## 동작 기준과 의도적인 범위
+| 태그 | 고른 기준 |
+|---|---|
+| `header`, `nav` | 모든 페이지에 반복되는 머리말과 이동 메뉴 |
+| `main` | 이 페이지의 핵심 내용 (한 페이지에 하나) |
+| `section` | 제목(h2)이 붙는 주제 묶음. 메뉴가 `id`로 찾아감 |
+| `article` | 따로 떼어도 뜻이 통하는 한 덩어리 → 프로젝트 카드 하나 |
+| `footer` | 페이지 맨 아래 부가 정보 |
 
-| 항목 | 기준 |
-| --- | --- |
-| 내비게이션 배경 변경 | `scrollY >= 60px` |
-| 맨 위로 버튼 표시 | `scrollY >= 300px` |
-| 반응형 브레이크포인트 | 768px / 1024px |
-| Intersection Observer threshold | 0.2, 대상 요소 면적의 20% |
-| 요청 타임아웃 | 10초 |
-| GitHub 목록 | 최근 업데이트된 공개 저장소 최대 6개 |
-| 테마 저장 키 | `codyssey-b1-1-theme` |
-| 최초 테마 | 라이트. 유효한 저장값이 있으면 복원 |
+### JS 구조: 이벤트 → 상태 변경 → 화면 업데이트
 
-GitHub 요청은 `https://api.github.com/users/codewhite7777/repos?sort=updated&direction=desc&per_page=6`을 사용합니다. 전체 페이지 수집은 하지 않으며 전체 저장소 링크를 별도로 제공합니다. 비인증 기본 호출 제한은 IP 기준 시간당 60회입니다. 403/429·다른 HTTP 오류·네트워크 실패·JSON 오류·타임아웃을 에러 UI와 재시도로 처리합니다.
+`js/app.js`는 번호 붙은 10개 구역으로 되어 있고, 모든 기능이 같은 흐름을 따릅니다.
 
-문의 폼은 **학습용**입니다. 이름·이메일·메시지의 공백과 형식을 검사하되 실제 전송이나 영구 저장은 하지 않습니다. 이메일 형식 검사는 주소의 존재 확인이 아닙니다. 입력 길이 상한은 이름 80자, 이메일 254자, 메시지 3000자입니다.
+```text
+ 사용자 이벤트            상태(STATE) 변경                 화면 업데이트(render)
+ ─────────────            ────────────────                 ─────────────────────
+ 다크 모드 클릭     →    STATE.theme = "dark"         →    renderTheme()    <html data-theme="dark">
+ 햄버거 클릭        →    STATE.menuOpen = true        →    renderMenu()     .nav-menu에 active
+ API 요청/응답      →    STATE.projectStatus = ...    →    renderProjects() 스피너/카드/메시지
+ 폼 입력/제출       →    STATE.formErrors.email = ... →    renderForm()     오류 문구, 빨간 테두리
+```
 
-언어별 필터링, 타이핑 효과, 실제 이메일 전송, 시스템 다크 모드 감지는 선택 항목이므로 제외했습니다. 보조적인 키보드 접근성과 동작 감소 설정은 반영했습니다.
+| 구역 | 내용 |
+|---|---|
+| [0. 설정값](js/app.js#L1-L9) | 60px, 300px, 0.2 같은 기준값 (아래 [동작 기준값](#동작-기준값)과 같은 값) |
+| [1. STATE](js/app.js#L11-L22) | 화면을 결정하는 값을 한 객체에 모음 |
+| [2. DOM 선택](js/app.js#L24-L37) | `querySelector`로 요소를 한 번만 찾아 둠 |
+| [3~9. 기능](js/app.js#L39-L214) | 다크 모드, 메뉴, 부드러운 스크롤, 스크롤, 애니메이션, API, 폼 |
+| [10. 시작](js/app.js#L216-L221) | 저장된 테마 복원, 프로젝트 요청 |
 
-## 실제 검증 결과
+**규칙**: 이벤트 핸들러는 STATE만 바꾸고, 화면은 render 함수만 바꿉니다. 그래서 "화면이 왜 이렇게 보이지?"의 답은 항상 STATE에 있습니다.
 
-최신 결과는 `docs/reports/` 및 Actions의 **Verify portfolio** 실행에서 확인합니다. 첫 실패 기록을 삭제하지 않고 이후 재검증 결과와 구분합니다.
+### 동작 기준값
 
-| 검증 | 결과 파일 |
-| --- | --- |
-| 필수 구조·문법 34개 | `static.json` |
-| 원본 파일의 Chrome 기능 검사 33개 | `browser.json` |
-| 원본 파일과 실제 GitHub API | `live.json` |
-| 공개 배포 파일 4개의 SHA-256 원본 일치 | `published-files.json` |
-| 배포 URL에서 실제 API·테마 복원·폼·스크린샷 | `deployed-live.json` |
-| 배포 URL에서 정상·오류·경계조건 33개 | `deployed-browser.json` |
+| 항목 | 값 | 코드 |
+|---|---|---|
+| 네비게이션 배경 변경 | 스크롤 60px 이상 | `NAV_SCROLL_Y` |
+| 맨 위로 버튼 표시 | 스크롤 300px 이상 | `TOP_BUTTON_Y` |
+| 스크롤 애니메이션 threshold | 0.2 (요소가 20% 보이면) | `REVEAL_THRESHOLD` |
+| 반응형 브레이크포인트 | 768px(태블릿), 1024px(데스크톱) | `css/style.css` 5번 |
+| 프로젝트 카드 수 | 최근 업데이트 순 6개 (fork 제외) | `PROJECT_COUNT` |
+| 테마 저장 키 | `localStorage`의 `theme` | `THEME_KEY` |
 
-브라우저 검사는 320·390·767·768·1024·1440px, 메뉴·스크롤 기준값, 테마 저장/복원/저장소 실패, 필수값·이메일 수정, API 오류·빈 상태·재시도·10초 타임아웃, 외부 HTML 삽입 방어 등을 다룹니다. 오류 상황은 API 응답을 통제하여 검사하고, 실제 API 접속은 별도 검사로 구분합니다.
+---
 
-공유 CI IP에서 익명 요청이 403/429를 응답하면 **검증 요청에만** Actions 단기 토큰으로 재시도할 수 있습니다. 사용 여부는 각 `live.json`의 `api_auth`에 기록합니다. 응답은 실제 GitHub에서 받으며 토큰을 웹사이트·배포 파일·보고서에 넣지 않습니다. 일반 방문자의 웹사이트는 인증 없는 요청을 사용합니다. 최종 배포 검증에서는 토큰 재시도를 사용하지 않았습니다.
+## 실행과 확인 흐름
 
-## 실행 및 배포
+**레포 받기 → Live Server로 열기 → 기능을 하나씩 확인** 순서입니다. 배포 URL에서 바로 확인해도 같습니다.
 
-VS Code에서 저장소 폴더를 열고 추천 확장 **Live Server (Ritwick Dey)**를 설치한 뒤 `index.html`에서 **Open with Live Server**를 선택합니다. 설정 포트는 5500입니다. 사용자 PC의 확장 설치와 실행 여부를 자동 검증한 것은 아닙니다.
+### 1단계. 레포 받고 Live Server로 열기
 
-배포는 GitHub Pages의 **`gh-pages` 브랜치 / 루트(`/`)** 방식입니다. `main`은 소스·문서·검증 기록을 보관하고 `gh-pages`는 검증된 HTML/CSS/JS/이미지만 보관합니다. GitHub의 **pages build and deployment**가 게시를 담당합니다.
+```bash
+git clone https://github.com/codewhite7777/codyssey_B1-1.git
+code codyssey_B1-1
+```
 
-`main` 코드만 바꾸면 배포 파일이 자동으로 갱신되는 구조는 아닙니다. 런타임 수정 후에는 소스 검증을 마치고 변경된 정적 파일을 `gh-pages`에 반영한 뒤 **Verify portfolio**를 다시 실행합니다. 배포본이 최신 소스와 다르면 파일 해시 검사가 실패하도록 구성했습니다.
+VS Code가 추천하는 **Live Server** 확장을 설치하고, `index.html`에서 오른쪽 클릭 → **Open with Live Server**.
 
-최초 시도한 커스텀 배포는 Pages 미설정으로 실패했으며, 이후 `gh-pages` 방식으로 전환했습니다. 과거 실패한 실행 대신 현재 배포 및 최신 검증 실행을 확인합니다.
+**결과**: 브라우저에 `http://127.0.0.1:5500/index.html`이 열립니다. 파일을 저장하면 자동으로 새로고침됩니다.
 
-## 제출용 스크린샷
+### 2단계. 반응형 레이아웃 확인
 
-모의 데이터가 아닌 실제 공개 사이트와 GitHub 데이터를 사용합니다.
+크롬 개발자 도구(F12) → 기기 툴바(Ctrl+Shift+M)에서 폭을 바꿔 봅니다.
 
-### 데스크톱
-![데스크톱 포트폴리오](images/screenshots/desktop.png)
+| 폭 | 메뉴 | 기술 카드 | 프로젝트 카드 |
+|---|---|---|---|
+| 767px 이하 (모바일) | 숨김, 햄버거 버튼 | 1열 | 1열 |
+| 768px 이상 (태블릿) | 가로 메뉴 | 2열 | 2열 |
+| 1024px 이상 (데스크톱) | 가로 메뉴 | 4열 | 3열 |
 
-### 모바일
-![모바일 포트폴리오](images/screenshots/mobile.png)
+프로젝트 카드 열 수는 미디어 쿼리 없이 `repeat(auto-fit, minmax(300px, 1fr))`이 폭에 맞춰 정합니다.
 
-### 다크 모드
-![다크 모드 포트폴리오](images/screenshots/dark.png)
+### 3단계. 다크 모드 확인
 
-## 평가 개념의 코드 위치
+1. 오른쪽 위 **다크 모드** 버튼 클릭 → 화면 전체 색이 바뀌고 버튼 글자가 **라이트 모드**로 바뀜
+2. 새로고침(F5) → **다크 모드가 유지됨**
+3. 개발자 도구 → Application → Local Storage에서 `theme: dark` 확인
 
-`STATE`는 예약어가 아니라 상태 객체의 이름입니다. 개별 변수도 가능하지만 관련 상태를 찾기 쉽게 묶었습니다. 상태 변경 후 `renderTheme`, `renderMenu`, `renderProjects`, `renderForm`이 DOM에 반영합니다.
+### 4단계. 메뉴와 스크롤 확인
 
-GitHub 흐름은 `loadProjects` → loading 표시 → fetch/HTTP 성공 여부/JSON 검사 → success·empty·error 상태 변경 → `renderProjects`입니다. 카드 변환은 `items.map(projectCard).join("")`에서 이루어집니다.
+| 해볼 것 | 결과 |
+|---|---|
+| (모바일 폭) 햄버거 버튼 클릭 | 메뉴가 열림. 다시 클릭하면 닫힘 |
+| 메뉴의 "프로젝트" 클릭 | 해당 섹션으로 부드럽게 이동 (모바일이면 메뉴도 닫힘) |
+| 60px 이상 스크롤 | 네비게이션 배경이 바뀌고 그림자가 생김 |
+| 300px 이상 스크롤 | 오른쪽 아래 ↑ 버튼이 나타남. 클릭하면 맨 위로 이동 |
+| 아래로 스크롤 | 프로필, 기술 카드가 아래에서 올라오며 나타남 |
 
-구현 완료와 학습자의 설명 능력은 별개입니다. 상세 평가 개념은 완성·검증된 실제 코드로 채팅에서 학습합니다.
+### 5단계. GitHub API 네 가지 상태 확인
+
+| 상태 | 확인 방법 | 화면 |
+|---|---|---|
+| 로딩 | 개발자 도구 Network에서 **Slow 3G**로 바꾸고 새로고침 | 스피너 + "로딩 중..." |
+| 성공 | 그냥 새로고침 | 저장소 카드 6개 |
+| 에러 | Network를 **Offline**으로 바꾸고 새로고침 | "프로젝트를 불러올 수 없습니다." + **다시 시도** 버튼 → Online으로 되돌리고 누르면 카드가 나옴 |
+| 빈 상태 | 콘솔(Console)에서 `STATE.projectStatus = "empty"; renderProjects();` | "표시할 프로젝트가 없습니다." |
+
+빈 상태는 실제 계정에 저장소가 있어서 콘솔로 **상태만 바꿔 render를 다시 부릅니다**. 상태만 바꾸면 화면이 따라 바뀐다는 것도 같이 보입니다.
+
+> GitHub API는 로그인 없이 **시간당 60번**까지만 됩니다. 넘으면 403 응답이 오고, 이것도 에러 상태로 표시됩니다.
+
+### 6단계. 폼 검증 확인
+
+| 해볼 것 | 결과 |
+|---|---|
+| 아무것도 안 쓰고 **보내기** | 세 칸 아래에 "필수 입력 항목입니다." + 빨간 테두리 |
+| 이메일에 `abc` 입력 | 입력하는 즉시 "이메일 형식이 아닙니다." |
+| 이메일을 `a@b.co`로 고침 | 오류 문구가 바로 사라짐 |
+| 세 칸 다 채우고 **보내기** | 페이지 새로고침 없이 "메시지가 확인되었습니다." 표시, 입력칸 비워짐 |
+
+### 7단계. 배포 사이트 확인
+
+https://codewhite7777.github.io/codyssey_B1-1/ 에서 2~6단계가 같게 동작합니다.
+
+---
+
+## 과제 요구사항 대응
+
+### 1. 미션 소개
+
+라이브러리 없이 HTML, CSS, JS만으로 반응형 포트폴리오를 만들고, 모든 동작을 **이벤트 → 상태 변경 → 화면 업데이트** 흐름으로 짰습니다 ([JS 구조](#js-구조-이벤트--상태-변경--화면-업데이트)).
+
+### 2. 최종 결과물
+
+| 과제 요구 | 어디서 | 상태 |
+|---|---|---|
+| 반응형, 6개 섹션 | `index.html`, [2단계](#2단계-반응형-레이아웃-확인) | ✅ |
+| 다크 모드, 햄버거, 부드러운 스크롤, 스크롤 애니메이션, 폼 검증 | `js/app.js` 3~9, [3~6단계](#3단계-다크-모드-확인) | ✅ |
+| GitHub API 연동, 로딩/에러/빈 상태 | `js/app.js` 8, [5단계](#5단계-github-api-네-가지-상태-확인) | ✅ |
+| 다크 모드 로컬스토리지 유지 | `js/app.js` 3, 10 | ✅ |
+| GitHub Pages 배포 | [배포 URL](https://codewhite7777.github.io/codyssey_B1-1/) | ✅ |
+
+### 3. 과제 목표
+
+| 목표 | 한 줄 답 | 자세히 |
+|---|---|---|
+| 시맨틱 태그와 구조 설계 기준 | 태그 이름만 보고도 영역의 역할을 알 수 있게 | [화면 구조](#화면-구조-시맨틱-태그로-영역을-나눈다) |
+| Flexbox와 Grid 차이 | Flex는 한 줄(가로 또는 세로) 정렬, Grid는 행과 열 2차원 배치 | [evaluation 항목 3](docs/evaluation.md#flexbox와-grid를-어디에-왜) |
+| querySelector → addEventListener | 요소를 찾고, 그 요소에 "이 일이 생기면 이 함수 실행"을 붙임 | [evaluation 항목 2](docs/evaluation.md#onclick-대신-addeventlistener를-쓴-이유) |
+| 화살표 함수, 구조분해, map/filter | 짧게 쓰기, 객체에서 필요한 값만 꺼내기, 배열을 새 배열로 바꾸기 | [evaluation 항목 3](docs/evaluation.md#배열-메서드로-github-데이터--카드) |
+| fetch, async/await, 상태 UI | 응답을 기다린 뒤 성공/실패에 따라 상태를 바꾸고 render | [evaluation 항목 3](docs/evaluation.md#asyncawait와-trycatch로-성공실패-나누기) |
+| 이벤트 → 상태 → DOM | 핸들러는 STATE만, render는 화면만 | [evaluation 항목 3](docs/evaluation.md#이벤트--상태-변경--화면-업데이트-따라가기) |
+
+### 4. 기능 요구 사항
+
+#### 4-1. 프로젝트 기본 구성
+
+| 요구 | 어디서 |
+|---|---|
+| `index.html`, `css/`, `js/`, `images/` 분리 | [파일 구조](#파일-구조-역할마다-파일을-나눈다) |
+| 외부 CSS, JS 연결 | [index.html 9~10줄](index.html#L9-L10) |
+| VS Code + Live Server | `.vscode/extensions.json`(추천 확장), `.vscode/settings.json`(포트 5500) |
+
+#### 4-2. HTML 구조
+
+| 요구 | 어디서 |
+|---|---|
+| header, nav, main, section, article, footer | [index.html](index.html), article은 [app.js 카드 생성](js/app.js#L120-L132) |
+| Hero, About, Skills, Projects, Contact, Footer | `id="hero"`, `about`, `skills`, `projects`, `contact`, `<footer>` |
+| 메뉴 앵커 링크 | `<a href="#about">` 등 → 같은 `id`의 section |
+| 이미지 alt | [프로필 이미지](index.html#L50) |
+| label for ↔ input id | [폼](index.html#L104-L118): `for="name"` ↔ `id="name"` 등 3쌍 |
+
+#### 4-3. CSS
+
+| 요구 | 어디서 |
+|---|---|
+| 외부 스타일시트 `css/style.css` | ✅ |
+| `:root` 변수 (색상, 폰트, 간격) | [style.css 1번](css/style.css#L4-L27) |
+| `[data-theme="dark"]` 변수 | [style.css 1번](css/style.css#L29-L44) |
+| 네비게이션 Flexbox | [`.nav`](css/style.css#L104-L109) |
+| 프로젝트 카드 Grid `auto-fit` + `minmax` | [`.project-grid`](css/style.css#L182-L186) |
+| 모바일 퍼스트, 768px / 1024px | 기본 스타일이 모바일, [`min-width` 미디어 쿼리](css/style.css#L251) |
+| 모바일에서 메뉴 숨김 + 햄버거 | `.nav-menu { display: none }` → 768px 이상에서 보이고 햄버거 숨김 |
+| hover + transition, box-shadow | `.button`, `.skill-card`, `.project-card` |
+
+#### 4-4. JavaScript 기초
+
+| 요구 | 어디서 |
+|---|---|
+| `defer`로 연결 | [index.html 10줄](index.html#L10) |
+| `const`, `let`만 (var 없음) | `js/app.js` 전체 |
+| onclick 없이 addEventListener | `index.html`에 `onclick` 없음 |
+| querySelector / querySelectorAll | app.js 2번, 5번, 7번 |
+| textContent / innerHTML | `projectMessage.textContent`, `projectGrid.innerHTML` (8번) |
+| classList add / remove / toggle | add: 애니메이션(7번), remove·add: 폼 오류(9번), toggle: 메뉴(4번), 스크롤(6번) |
+| click, submit, scroll, input 이벤트 | 3·4번 click, 9번 submit·input, 6번 scroll |
+| preventDefault | 5번 링크 클릭, 9번 폼 제출 |
+
+#### 4-5. 인터랙션
+
+| 요구 | 코드 | 확인 |
+|---|---|---|
+| 햄버거 메뉴 `classList.toggle('active')` | [app.js 4번](js/app.js#L53-L64) | [4단계](#4단계-메뉴와-스크롤-확인) |
+| 부드러운 스크롤 | [app.js 5번](js/app.js#L66-L78) | 4단계 |
+| 맨 위로 버튼 (300px) | [app.js 6번](js/app.js#L80-L90) | 4단계 |
+| 네비게이션 배경 (60px) | app.js 6번 | 4단계 |
+| 다크 모드 + 로컬스토리지 | [app.js 3번](js/app.js#L39-L51), [10번](js/app.js#L216-L221) | [3단계](#3단계-다크-모드-확인) |
+| 스크롤 애니메이션 (threshold 0.2) | [app.js 7번](js/app.js#L92-L107) | 4단계 |
+| 폼: 필수값, 이메일 형식, 필드 근처 오류, preventDefault + 성공 메시지 | [app.js 9번](js/app.js#L168-L214) | [6단계](#6단계-폼-검증-확인) |
+
+#### 4-6. ES6+ 문법과 배열 메서드
+
+| 요구 | 어디서 |
+|---|---|
+| 화살표 함수 | 모든 함수 (`const renderTheme = () => {...}`) |
+| 템플릿 리터럴로 HTML 생성 | [`createCard`](js/app.js#L120-L132) |
+| 구조분해 할당 | `createCard`의 `const { name, description, ... } = repo`, `renderProjects`의 `const { projectStatus, projects } = STATE`, `renderForm`의 `([name, message])` |
+| map | 저장소 배열 → 카드 HTML 배열 |
+| filter | fork 저장소 빼기 |
+| forEach | 링크, `.reveal` 요소, 폼 입력칸 순회 |
+
+#### 4-7. 비동기 처리와 API
+
+| 요구 | 어디서 |
+|---|---|
+| fetch + async/await | [`loadProjects`](js/app.js#L142-L164) |
+| 엔드포인트 | `https://api.github.com/users/codewhite7777/repos?sort=updated` |
+| 로딩 / 성공 / 에러 / 빈 상태 | `STATE.projectStatus` 4가지 → [`renderProjects`](js/app.js#L134-L140) |
+| try/catch | 네트워크 실패, `response.ok`가 아닌 응답(403 포함) 모두 catch → 에러 상태 |
+
+#### 4-8. 상태 관리 패턴 (3가지 이상)
+
+| 흐름 | 이벤트 | 상태 | 렌더링 |
+|---|---|---|---|
+| 1 | 다크 모드 클릭 | `STATE.theme` | `renderTheme` → 전체 색 |
+| 2 | 페이지 시작 / 다시 시도 클릭 | `STATE.projectStatus`, `STATE.projects` | `renderProjects` → Projects 섹션 |
+| 3 | 폼 입력 / 제출 | `STATE.formErrors`, `STATE.formSent` | `renderForm` → 오류 문구, 성공 메시지 |
+| 4 | 햄버거 클릭 | `STATE.menuOpen` | `renderMenu` → 메뉴 열림/닫힘 |
+
+#### 4-9. 배포
+
+GitHub Pages, **main 브랜치 / 루트(`/`)** 에서 배포합니다. 빌드 과정이 없어 `index.html`이 그대로 사이트가 됩니다.
+
+### 5. 보너스 과제
+
+이번 범위에서는 하지 않습니다. 필수 요구사항에 집중합니다.
+
+### 6. 개발 환경
+
+| 항목 | 사용 |
+|---|---|
+| 언어 | HTML, CSS, JavaScript (라이브러리, 프레임워크 없음) |
+| 편집기 | VS Code + Live Server |
+| 브라우저 | Chrome 최신 |
+| 배포 | GitHub Pages |
+
+### 7. 제약 사항
+
+| 제약 | 지킨 방법 |
+|---|---|
+| 외부 라이브러리 금지 | CSS, JS 모두 직접 작성. 외부 파일을 하나도 불러오지 않음 |
+| `var` 대신 `const`, `let` | `var` 없음 |
+| onclick 대신 addEventListener | `onclick` 없음 |
+| 인라인 스타일 금지 | `style="..."` 없음. 보이기/숨기기는 class와 `hidden` 속성 |
+| 403(레이트 리밋) 처리 | `response.ok` 검사 → 에러 상태 + 다시 시도 버튼 |
+
+### 8. 스크린샷
+
+| 데스크톱 | 모바일 | 모바일 메뉴 |
+|---|---|---|
+| ![데스크톱](images/screenshots/desktop.png) | ![모바일](images/screenshots/mobile.png) | ![모바일 메뉴](images/screenshots/mobile-menu.png) |
+
+| 다크 모드 | 에러 상태 |
+|---|---|
+| ![다크 모드](images/screenshots/dark.png) | ![에러 상태](images/screenshots/state-error.png) |
