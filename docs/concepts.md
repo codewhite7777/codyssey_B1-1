@@ -1,11 +1,37 @@
 # 개념 정리
 
-과제 **3. 과제 목표**와 **평가 체크리스트**에 나오는 개념을 **그림 → 설명 → 이 레포 코드 → 스스로 확인** 순서로 정리했습니다.
-그림은 모두 **이 레포의 실제 코드**를 기준으로 그렸고, 각 절 끝의 **더 보기**에 그림이 있는 공식 문서(MDN 등)를 달았습니다.
+피어평가는 **동작하는가**(항목 1)와 **설명할 수 있는가**(항목 2~4)를 봅니다.
+평가 질문 15개에 답하려면 아래 **개념 10개**가 필요합니다. 각 개념은 **비유 그림 → 코드 그림 → 설명 → 이 레포 코드 → 스스로 확인** 순서로 정리했습니다.
 
 [← README](../README.md) · [평가 준비](evaluation.md)
 
-## 한눈에 보기
+## 평가에 필요한 개념
+
+![개념 지도](images/00_overview.svg)
+
+### 평가 질문별로 필요한 개념
+
+| 평가 항목 | 평가 질문 (요약) | 필요한 개념 | 한 줄 답 |
+|---|---|---|---|
+| 1. 동작 | 창을 줄이면 모바일 레이아웃으로 바뀌나? | [⑤](#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기) [④](#4-flexbox와-grid-한-줄이냐-바둑판이냐) | 기본 = 휴대폰, `min-width`로 넓은 화면만 더함. 카드는 `auto-fit` |
+|  | 다크 모드 전환, 새로고침 후 유지? | [③](#3-css-변수와-다크-모드-그리고-localstorage) | CSS 변수 값만 교체, `localStorage`에 저장했다가 시작할 때 꺼냄 |
+|  | 햄버거, 스크롤 애니메이션, 맨 위로 버튼? | [⑥](#6-dom-선택과-이벤트-찾아서-붙인다) [⑩](#10-intersection-observer-보이면-나타나기) | click, scroll 이벤트로 클래스를 붙였다 뗌. 애니메이션은 20% 보이면 |
+|  | GitHub 데이터, 로딩/에러/빈 상태 구분? | [⑨](#9-비동기-fetch-asyncawait-trycatch) [⑦](#7-이벤트--상태-변경--화면-업데이트) | 요청 결과로 상태 4개 중 하나 → `renderProjects` |
+|  | 필수값, 이메일 오류에 즉시 피드백? | [⑥](#6-dom-선택과-이벤트-찾아서-붙인다) [⑦](#7-이벤트--상태-변경--화면-업데이트) | `input` 이벤트마다 그 칸 검사 → `renderForm` |
+| 2. 구조 | HTML, CSS, JS를 나눈 이유와 역할 | [①](#1-html-css-js를-왜-나누나-defer는-뭔가) | 무엇이 있나 / 어떻게 보이나 / 무엇이 바뀌나 |
+|  | 시맨틱 태그를 고른 기준 | [②](#2-시맨틱-태그-태그-이름이-곧-역할) | 태그 이름이 곧 역할 (라벨 붙은 상자) |
+|  | CSS 변수(:root)의 이점 | [③](#3-css-변수와-다크-모드-그리고-localstorage) | 한 곳에서 관리, 다크 모드는 값만 바꿈 |
+|  | onclick 대신 addEventListener | [⑥](#6-dom-선택과-이벤트-찾아서-붙인다) | 함수 하나 vs 여러 개, HTML과 JS 분리 |
+| 3. 흐름 | 이벤트 → 상태 → 화면을 코드로 따라가기 | [⑦](#7-이벤트--상태-변경--화면-업데이트) | 핸들러는 STATE만, 화면은 render만 |
+|  | async/await, try/catch로 성공/실패 분기 | [⑨](#9-비동기-fetch-asyncawait-trycatch) | `await`로 기다림, `ok`가 아니면 throw → catch |
+|  | map, filter로 GitHub 데이터 → 카드 | [⑧](#8-es6-문법과-배열-메서드-github-데이터--카드) | filter → slice → map → join → innerHTML |
+|  | Flexbox와 Grid를 어디에, 왜 | [④](#4-flexbox와-grid-한-줄이냐-바둑판이냐) | 한 줄 정렬 vs 행 × 열 배치 |
+| 4. 이유 | STATE 객체를 따로 둔 이유 | [⑦](#7-이벤트--상태-변경--화면-업데이트) | 화면의 답이 한 곳에 (전광판은 기록지만 봄) |
+|  | 모바일 퍼스트로 쓴 이유 | [⑤](#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기) | 단순한 화면에서 시작해 더하기 |
+
+> 각 질문을 시연하고 말하는 방법은 [평가 준비](evaluation.md)에 있습니다. 이 문서는 그 답의 **바탕이 되는 개념**을 설명합니다.
+
+### 개념 10개와 코드 위치
 
 | # | 개념 | 과제 목표 | 평가 항목 | 코드 |
 |---|---|---|---|---|
@@ -27,6 +53,12 @@
 ## 1. HTML, CSS, JS를 왜 나누나, defer는 뭔가
 
 > **HTML은 무엇이 있나, CSS는 어떻게 보이나, JS는 무엇이 바뀌나.** 역할마다 파일을 나누면 고칠 곳이 분명해진다.
+
+**비유로 보기: 집 짓기**
+
+![비유: 집 짓기](images/a01_house.svg)
+
+**코드로 보기**
 
 ![HTML, CSS, JS의 역할](images/01_file_roles.svg)
 
@@ -67,6 +99,12 @@
 
 > `div`는 "상자"라는 뜻뿐이다. `header`, `nav`, `main`, `section`, `article`, `footer`는 **그 영역이 무엇인지**까지 말해 준다.
 
+**비유로 보기: 라벨 붙은 이사 상자**
+
+![비유: 라벨 붙은 이사 상자](images/a02_boxes.svg)
+
+**코드로 보기**
+
 ![이 페이지의 시맨틱 구조](images/03_semantic.svg)
 
 | 태그 | 고른 기준 | 이 페이지에서 |
@@ -98,6 +136,12 @@
 ## 3. CSS 변수와 다크 모드, 그리고 localStorage
 
 > 색을 **변수로 한 곳에** 정의하고 `var()`로 가져다 쓴다. 다크 모드는 **변수 값만 바꾸는 것**이다.
+
+**비유로 보기: 이름 붙은 페인트 통**
+
+![비유: 이름 붙은 페인트 통](images/a03_paint.svg)
+
+**코드로 보기**
 
 ![CSS 변수와 다크 모드](images/04_css_variables.svg)
 
@@ -144,6 +188,12 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 > **Flexbox는 한 방향(가로 또는 세로) 한 줄 정렬**, **Grid는 행과 열을 동시에** 맞추는 배치.
 
+**비유로 보기: 한 줄 서기와 극장 좌석**
+
+![비유: 한 줄 서기와 극장 좌석](images/a04_line_theater.svg)
+
+**코드로 보기**
+
 ![Flexbox와 Grid](images/05_flex_grid.svg)
 
 | | Flexbox | Grid |
@@ -188,6 +238,12 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 > 미디어 쿼리 밖의 기본 스타일을 **가장 좁은 화면** 기준으로 쓰고, `@media (min-width: …)`로 **넓은 화면에 필요한 것만 더한다.**
 
+**비유로 보기: 작은 가방부터 싸기**
+
+![비유: 작은 가방부터 싸기](images/a05_packing.svg)
+
+**코드로 보기**
+
 ![모바일 퍼스트](images/07_mobile_first.svg)
 
 ```css
@@ -226,6 +282,12 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 ## 6. DOM 선택과 이벤트: 찾아서, 붙인다
 
 > 브라우저는 HTML을 읽어 **DOM 트리**(객체 나무)를 만든다. JS는 `querySelector`로 나무에서 요소를 **찾고**, `addEventListener`로 "이 일이 생기면 이 함수"를 **붙인다.**
+
+**비유로 보기: 초인종 알림 등록**
+
+![비유: 초인종 알림 등록](images/a06_doorbell.svg)
+
+**코드로 보기**
 
 ![DOM과 이벤트](images/08_dom_event.svg)
 
@@ -285,6 +347,12 @@ button.addEventListener("click", () => console.log("D"));
 
 > 이벤트 핸들러는 **STATE만** 바꾸고, 화면은 **render 함수만** 바꾼다. 그래서 "화면이 왜 이렇게 보이지?"의 답은 항상 STATE에 있다.
 
+**비유로 보기: 점수 기록지와 전광판**
+
+![비유: 점수 기록지와 전광판](images/a07_scoreboard.svg)
+
+**코드로 보기**
+
 ![이벤트, 상태, 화면](images/09_state_render.svg)
 
 ```js
@@ -307,7 +375,7 @@ const STATE = {
 | ③ 화면 업데이트 | `renderTheme()` | `<html data-theme="dark">` → CSS 변수 → 전체 색 변경 |
 
 **STATE 객체를 따로 만든 이유 (그냥 변수로 하면 안 되나?)**
-- **한눈에 보임**: `let theme`, `let menuOpen`, `let status`…가 파일 곳곳에 흩어지면, 화면에 영향을 주는 값이 무엇인지 찾아야 합니다. STATE 객체의 목록이 곧 **"이 페이지의 상태 전부"**입니다.
+- **한눈에 보임**: `let theme`, `let menuOpen`, `let status`…가 파일 곳곳에 흩어지면, 화면에 영향을 주는 값이 무엇인지 찾아야 합니다. STATE 객체의 목록이 곧 "**이 페이지의 상태 전부**"입니다.
 - **화면이 어긋나지 않음**: 핸들러마다 DOM을 직접 고치면, 같은 화면을 여러 곳에서 고치다 서로 다르게 고치기 쉽습니다. render 함수 하나가 STATE를 보고 그리면 같은 STATE → 항상 같은 화면입니다.
 - **확인이 쉬움**: 콘솔에서 `STATE.projectStatus = "empty"; renderProjects();`만 해도 빈 상태 화면이 나옵니다.
 - **React로 이어짐**: React의 `useState`와 컴포넌트 렌더링이 바로 이 방식입니다. 상태를 바꾸면 React가 render를 대신 불러 줍니다.
@@ -331,6 +399,12 @@ const STATE = {
 ## 8. ES6+ 문법과 배열 메서드: GitHub 데이터 → 카드
 
 > GitHub가 준 **객체 배열**을 `filter`로 거르고, `map`으로 **HTML 문자열 배열**로 바꾸고, `join`으로 합쳐 화면에 넣는다.
+
+**비유로 보기: 공장 컨베이어 벨트**
+
+![비유: 공장 컨베이어 벨트](images/a08_factory.svg)
+
+**코드로 보기**
 
 ![배열 메서드 파이프라인](images/10_array_pipeline.svg)
 
@@ -389,6 +463,12 @@ const result = repos.filter((repo) => !repo.fork).map((repo) => `<h3>${repo.name
 
 > 서버 응답은 **언제 올지 모른다.** `await`로 기다린 뒤, 결과에 따라 **loading → success / empty / error** 중 하나로 상태를 바꾸고 그린다.
 
+**비유로 보기: 카페 진동벨**
+
+![비유: 카페 진동벨](images/a09_buzzer.svg)
+
+**코드로 보기**
+
 ![fetch와 상태 4가지](images/11_fetch_states.svg)
 
 | 개념 | 뜻 |
@@ -433,6 +513,12 @@ const repos = await response.json();
 ## 10. Intersection Observer: 보이면 나타나기
 
 > "이 요소가 화면에 **20% 들어오면** 알려 줘" 하고 브라우저에 맡기는 감시자. 알림을 받으면 `visible` 클래스를 붙이고 CSS transition이 애니메이션을 한다.
+
+**비유로 보기: 복도 센서등**
+
+![비유: 복도 센서등](images/a10_sensor.svg)
+
+**코드로 보기**
 
 ![Intersection Observer](images/12_observer.svg)
 
