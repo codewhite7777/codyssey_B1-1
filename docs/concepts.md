@@ -47,7 +47,80 @@
 | `css/style.css` | 색, 크기, 배치 | 버튼 색, 카드 열 수를 바꿀 때 |
 | `js/app.js` | 이벤트, 상태, 화면 갱신 | 클릭했을 때 동작을 바꿀 때 |
 
-한 파일에 섞으면(HTML에 `style="..."`, `onclick="..."`) 버튼 색 하나 바꾸려고 HTML을 뒤져야 하고, 같은 스타일을 여러 곳에 반복하게 됩니다. 과제가 **인라인 스타일과 onclick을 금지**하는 이유도 같습니다.
+### 나누지 않고도 쓸 수 있나? (a/b)
+
+**쓸 수 있습니다.** 브라우저는 HTML 파일 하나에 CSS와 JS가 다 들어 있어도 같은 화면을 그립니다. 파일을 나누는 것은 브라우저가 요구하는 게 아니라 **사람이 관리하기 위한 선택**이고, 이번 과제에서는 그 선택이 **요구사항**입니다.
+
+같은 "다크 모드 버튼"을 두 방식으로 쓰면 이렇습니다.
+
+`a/` **한 파일**: `index.html` 하나에 모양과 동작까지 다 넣음 (`-` = b와 다른 줄)
+
+```diff
+ <head>
+-  <style>                                   /* 내부 블록 */
+-    .theme-button { border-radius: 999px; }
+-  </style>
+ </head>
+ <body>
+-  <button class="theme-button" style="padding: 0.4rem 0.9rem" onclick="toggleTheme()">  <!-- 인라인 -->
+-    다크 모드
+-  </button>
+-  <script>                                  /* 내부 블록 */
+-    function toggleTheme() { … }
+-  </script>
+ </body>
+```
+
+`b/` **역할별 파일**: 이 레포 코드 (`+` = a와 다른 줄)
+
+```diff
+ <!-- index.html: 구조만 -->
+ <head>
++  <link rel="stylesheet" href="css/style.css">
++  <script src="js/app.js" defer></script>
+ </head>
+ <body>
++  <button class="theme-button" type="button">다크 모드</button>
+ </body>
+```
+
+```diff
+ /* css/style.css: 모양만 */
++.theme-button {
++  padding: 0.4rem 0.9rem;
++  border-radius: 999px;
++  …
++}
+```
+
+```diff
+ // js/app.js: 동작만
++const themeButton = document.querySelector(".theme-button");
++themeButton.addEventListener("click", () => {
++  STATE.theme = STATE.theme === "dark" ? "light" : "dark";
++  localStorage.setItem(THEME_KEY, STATE.theme);
++  renderTheme();
++});
+```
+
+**CSS, JS를 넣는 3가지 방식과 과제 기준**
+
+| 방식 | 모양 | 동작하나 | 이 과제에서 |
+|---|---|---|---|
+| 인라인 | `style="…"`, `onclick="…"` (요소 하나에 직접) | 됨 | ❌ **금지** (7. 제약 사항: 인라인 스타일, onclick 금지) |
+| 내부 블록 | `<style>…</style>`, `<script>…</script>` (HTML 안) | 됨 | ❌ 해당 안 됨 (4. 기능 요구: `css/`, `js/` 폴더 분리, 외부 파일 연결) |
+| 외부 파일 | `<link href="css/style.css">`, `<script src="js/app.js" defer>` | 됨 | ✅ **요구사항** (이 레포) |
+
+**동작이 같은데도 나누는 이유**
+
+| 기준 | a/ 한 파일 | b/ 역할별 파일 |
+|---|---|---|
+| 고칠 곳 | 색을 바꿀 때도, 동작을 바꿀 때도 `index.html`을 뒤짐 | 색은 `style.css`, 동작은 `app.js`만 엶 |
+| 재사용 | 페이지가 늘면 같은 CSS, JS를 페이지마다 복사 | 모든 페이지가 같은 파일을 불러 씀 |
+| 캐시 | CSS, JS가 HTML 안에 있어서 글 하나만 고쳐도 전부 다시 받음 | 브라우저가 CSS, JS 파일을 저장해 두고 다시 씀 |
+| 실행 시점 | `<script>…</script>`에는 `defer`가 듣지 않음 → `<body>` 맨 끝에 둬야 함 | `<script src defer>`로 `<head>`에 둬도 HTML을 다 읽은 뒤 실행 |
+
+> 한 줄 답: "한 파일로도 동작은 같습니다. 하지만 역할별로 나누면 고칠 곳이 분명하고, 여러 페이지에서 재사용하고 캐시할 수 있고, `defer`로 실행 시점도 정할 수 있습니다. 그래서 과제도 외부 파일 분리를 요구하고 인라인 스타일과 onclick을 금지합니다."
 
 ### defer: HTML을 다 읽은 뒤에 JS 실행
 
