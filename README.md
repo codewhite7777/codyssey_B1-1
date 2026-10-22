@@ -21,7 +21,7 @@
 
 | 함께 보는 문서 | 내용 |
 |---|---|
-| [docs/concepts.md](docs/concepts.md) | 평가 질문 15개에 필요한 개념 10개를 비유 그림, 코드 그림, 스스로 확인 문제로 정리 |
+| [docs/concepts.md](docs/concepts.md) | 평가 질문 15개에 필요한 개념 10개를 그림, 이 레포 코드, 스스로 확인 문제로 정리 |
 | [docs/evaluation.md](docs/evaluation.md) | 평가 체크리스트 항목 1~4마다 보여줄 코드 위치와 말하기 예시 |
 
 ## 진행 상황
@@ -34,7 +34,7 @@
 | D. JS API | GitHub API, 로딩/성공/에러/빈 상태 | `js/app.js` 8 | ✅ |
 | E. JS 폼 | 필수값, 이메일 형식 검사 | `js/app.js` 9 | ✅ |
 | F. 배포 | GitHub Pages, 스크린샷 | [배포 URL](https://codewhite7777.github.io/codyssey_B1-1/), `images/screenshots/` | ✅ |
-| G. 개념 정리 | 평가 질문별 필요한 개념, 개념마다 비유 그림 + 코드 그림, 코드에 `[개념 N]` 주석 | `docs/concepts.md`, `docs/images/` | ✅ |
+| G. 개념 정리 | 평가 질문별 필요한 개념, 개념마다 그림, 코드에 `[개념 N]` 주석 | `docs/concepts.md`, `docs/images/` | ✅ |
 
 ---
 
@@ -55,7 +55,7 @@ codyssey_B1-1/
 ├── docs/
 │   ├── concepts.md      개념 정리 (그림 + 코드 + 확인 문제)
 │   ├── evaluation.md    평가 준비
-│   └── images/          개념 그림 SVG (00 개념 지도, a01~a10 비유, 01~13 코드)
+│   └── images/          개념 그림 SVG (00 개념 지도, 01~13 개념별)
 └── .vscode/             Live Server 추천 확장과 포트 설정
 ```
 

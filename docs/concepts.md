@@ -1,7 +1,7 @@
 # 개념 정리
 
 피어평가는 **동작하는가**(항목 1)와 **설명할 수 있는가**(항목 2~4)를 봅니다.
-평가 질문 15개에 답하려면 아래 **개념 10개**가 필요합니다. 각 개념은 **비유 그림 → 코드 그림 → 설명 → 이 레포 코드 → 스스로 확인** 순서로 정리했습니다.
+평가 질문 15개에 답하려면 아래 **개념 10개**가 필요합니다. 각 개념은 **핵심 한 줄 → 그림 → 설명 → 이 레포 코드 → 스스로 확인** 순서이고, 그림은 모두 이 레포 코드를 기준으로 그렸습니다.
 
 [← README](../README.md) · [평가 준비](evaluation.md)
 
@@ -19,32 +19,17 @@
 |  | GitHub 데이터, 로딩/에러/빈 상태 구분? | [⑨](#9-비동기-fetch-asyncawait-trycatch) [⑦](#7-이벤트--상태-변경--화면-업데이트) | 요청 결과로 상태 4개 중 하나 → `renderProjects` |
 |  | 필수값, 이메일 오류에 즉시 피드백? | [⑥](#6-dom-선택과-이벤트-찾아서-붙인다) [⑦](#7-이벤트--상태-변경--화면-업데이트) | `input` 이벤트마다 그 칸 검사 → `renderForm` |
 | 2. 구조 | HTML, CSS, JS를 나눈 이유와 역할 | [①](#1-html-css-js를-왜-나누나-defer는-뭔가) | 무엇이 있나 / 어떻게 보이나 / 무엇이 바뀌나 |
-|  | 시맨틱 태그를 고른 기준 | [②](#2-시맨틱-태그-태그-이름이-곧-역할) | 태그 이름이 곧 역할 (라벨 붙은 상자) |
+|  | 시맨틱 태그를 고른 기준 | [②](#2-시맨틱-태그-태그-이름이-곧-역할) | 태그 이름이 곧 역할 |
 |  | CSS 변수(:root)의 이점 | [③](#3-css-변수와-다크-모드-그리고-localstorage) | 한 곳에서 관리, 다크 모드는 값만 바꿈 |
 |  | onclick 대신 addEventListener | [⑥](#6-dom-선택과-이벤트-찾아서-붙인다) | 함수 하나 vs 여러 개, HTML과 JS 분리 |
 | 3. 흐름 | 이벤트 → 상태 → 화면을 코드로 따라가기 | [⑦](#7-이벤트--상태-변경--화면-업데이트) | 핸들러는 STATE만, 화면은 render만 |
 |  | async/await, try/catch로 성공/실패 분기 | [⑨](#9-비동기-fetch-asyncawait-trycatch) | `await`로 기다림, `ok`가 아니면 throw → catch |
 |  | map, filter로 GitHub 데이터 → 카드 | [⑧](#8-es6-문법과-배열-메서드-github-데이터--카드) | filter → slice → map → join → innerHTML |
 |  | Flexbox와 Grid를 어디에, 왜 | [④](#4-flexbox와-grid-한-줄이냐-바둑판이냐) | 한 줄 정렬 vs 행 × 열 배치 |
-| 4. 이유 | STATE 객체를 따로 둔 이유 | [⑦](#7-이벤트--상태-변경--화면-업데이트) | 화면의 답이 한 곳에 (전광판은 기록지만 봄) |
+| 4. 이유 | STATE 객체를 따로 둔 이유 | [⑦](#7-이벤트--상태-변경--화면-업데이트) | 화면을 결정하는 값이 한 곳에 모임 |
 |  | 모바일 퍼스트로 쓴 이유 | [⑤](#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기) | 단순한 화면에서 시작해 더하기 |
 
 > 각 질문을 시연하고 말하는 방법은 [평가 준비](evaluation.md)에 있습니다. 이 문서는 그 답의 **바탕이 되는 개념**을 설명합니다.
-
-### 개념 10개와 코드 위치
-
-| # | 개념 | 과제 목표 | 평가 항목 | 코드 |
-|---|---|---|---|---|
-| 1 | [HTML, CSS, JS 나누기와 defer](#1-html-css-js를-왜-나누나-defer는-뭔가) | - | 2 | [index.html](../index.html#L10-L13) |
-| 2 | [시맨틱 태그](#2-시맨틱-태그-태그-이름이-곧-역할) | 1 | 2 | [index.html](../index.html) |
-| 3 | [CSS 변수, 다크 모드, localStorage](#3-css-변수와-다크-모드-그리고-localstorage) | - | 1, 2, 3 | [style.css](../css/style.css#L6-L52), [app.js 3번](../js/app.js#L50-L65) |
-| 4 | [Flexbox와 Grid](#4-flexbox와-grid-한-줄이냐-바둑판이냐) | 2 | 3 | [style.css](../css/style.css#L114-L121) |
-| 5 | [모바일 퍼스트 반응형](#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기) | - | 1, 4 | [style.css](../css/style.css#L267-L294) |
-| 6 | [DOM 선택과 이벤트](#6-dom-선택과-이벤트-찾아서-붙인다) | 3 | 2 | [app.js 2번](../js/app.js#L33-L48) |
-| 7 | [이벤트 → 상태 → 화면](#7-이벤트--상태-변경--화면-업데이트) | 6 | 3, 4 | [app.js 1번](../js/app.js#L19-L31) |
-| 8 | [ES6+ 문법과 배열 메서드](#8-es6-문법과-배열-메서드-github-데이터--카드) | 4 | 3 | [app.js 8번](../js/app.js#L141-L170) |
-| 9 | [비동기: fetch, async/await, try/catch](#9-비동기-fetch-asyncawait-trycatch) | 5 | 1, 3 | [app.js 8번](../js/app.js#L172-L199) |
-| 10 | [Intersection Observer](#10-intersection-observer-보이면-나타나기) | - | 1 | [app.js 7번](../js/app.js#L110-L128) |
 
 코드의 주석에도 `[개념 N]`으로 이 문서의 번호를 적어 두었습니다.
 
@@ -53,12 +38,6 @@
 ## 1. HTML, CSS, JS를 왜 나누나, defer는 뭔가
 
 > **HTML은 무엇이 있나, CSS는 어떻게 보이나, JS는 무엇이 바뀌나.** 역할마다 파일을 나누면 고칠 곳이 분명해진다.
-
-**비유로 보기: 집 짓기**
-
-![비유: 집 짓기](images/a01_house.svg)
-
-**코드로 보기**
 
 ![HTML, CSS, JS의 역할](images/01_file_roles.svg)
 
@@ -99,12 +78,6 @@
 
 > `div`는 "상자"라는 뜻뿐이다. `header`, `nav`, `main`, `section`, `article`, `footer`는 **그 영역이 무엇인지**까지 말해 준다.
 
-**비유로 보기: 라벨 붙은 이사 상자**
-
-![비유: 라벨 붙은 이사 상자](images/a02_boxes.svg)
-
-**코드로 보기**
-
 ![이 페이지의 시맨틱 구조](images/03_semantic.svg)
 
 | 태그 | 고른 기준 | 이 페이지에서 |
@@ -136,12 +109,6 @@
 ## 3. CSS 변수와 다크 모드, 그리고 localStorage
 
 > 색을 **변수로 한 곳에** 정의하고 `var()`로 가져다 쓴다. 다크 모드는 **변수 값만 바꾸는 것**이다.
-
-**비유로 보기: 이름 붙은 페인트 통**
-
-![비유: 이름 붙은 페인트 통](images/a03_paint.svg)
-
-**코드로 보기**
 
 ![CSS 변수와 다크 모드](images/04_css_variables.svg)
 
@@ -188,12 +155,6 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 > **Flexbox는 한 방향(가로 또는 세로) 한 줄 정렬**, **Grid는 행과 열을 동시에** 맞추는 배치.
 
-**비유로 보기: 한 줄 서기와 극장 좌석**
-
-![비유: 한 줄 서기와 극장 좌석](images/a04_line_theater.svg)
-
-**코드로 보기**
-
 ![Flexbox와 Grid](images/05_flex_grid.svg)
 
 | | Flexbox | Grid |
@@ -230,19 +191,13 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 그래서 **2열**이고, 남는 160px은 `1fr`로 두 칸이 나눠 가져 카드 하나가 360px이 됩니다.
 </details>
 
-**더 보기**: [flexbox의 기본 개념 (MDN, 주축/교차축 그림)](https://developer.mozilla.org/ko/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts) · [그리드 레이아웃 기본 개념 (MDN)](https://developer.mozilla.org/ko/docs/Web/CSS/Guides/Grid_layout/Basic_concepts) · [A Complete Guide to Flexbox (CSS-Tricks, 그림 많음)](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) · [A Complete Guide to CSS Grid (CSS-Tricks)](https://css-tricks.com/complete-guide-css-grid/)
+**더 보기**: [flexbox의 기본 개념 (MDN, 주축/교차축 그림)](https://developer.mozilla.org/ko/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts) · [그리드 레이아웃 기본 개념 (MDN)](https://developer.mozilla.org/ko/docs/Web/CSS/Guides/Grid_layout/Basic_concepts)
 
 ---
 
 ## 5. 모바일 퍼스트 반응형: 기본은 휴대폰, 넓어지면 더하기
 
 > 미디어 쿼리 밖의 기본 스타일을 **가장 좁은 화면** 기준으로 쓰고, `@media (min-width: …)`로 **넓은 화면에 필요한 것만 더한다.**
-
-**비유로 보기: 작은 가방부터 싸기**
-
-![비유: 작은 가방부터 싸기](images/a05_packing.svg)
-
-**코드로 보기**
 
 ![모바일 퍼스트](images/07_mobile_first.svg)
 
@@ -283,12 +238,6 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 > 브라우저는 HTML을 읽어 **DOM 트리**(객체 나무)를 만든다. JS는 `querySelector`로 나무에서 요소를 **찾고**, `addEventListener`로 "이 일이 생기면 이 함수"를 **붙인다.**
 
-**비유로 보기: 초인종 알림 등록**
-
-![비유: 초인종 알림 등록](images/a06_doorbell.svg)
-
-**코드로 보기**
-
 ![DOM과 이벤트](images/08_dom_event.svg)
 
 **DOM 조작에 쓴 것**
@@ -321,7 +270,6 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 | 쓰는 곳 | `<button onclick="toggle()">` 처럼 HTML 안 | JS 파일 안 |
 | 같은 이벤트에 함수 여러 개 | **하나만**. 다시 대입하면 앞의 것을 덮어씀 | **여러 개** 등록, 모두 실행 |
 | 역할 분리 | HTML에 동작 코드가 섞임 | HTML은 구조만, 동작은 JS에만 |
-| 떼기 | `null` 대입 | `removeEventListener`로 그 함수만 뗌 |
 
 **이 레포 코드**: [app.js 2번 DOM 선택](../js/app.js#L33-L48), [3번 click](../js/app.js#L50-L65), [5번 preventDefault](../js/app.js#L82-L95), [9번 input/submit](../js/app.js#L230-L252)
 
@@ -339,19 +287,13 @@ button.addEventListener("click", () => console.log("D"));
 `B`, `C`, `D`가 찍힙니다. `onclick`은 자리가 하나라 `A`가 `B`로 덮어쓰였고, `addEventListener`로 등록한 `C`, `D`는 둘 다 실행됩니다. (이 레포의 다크 모드 동작도 함께 실행됩니다)
 </details>
 
-**더 보기**: [DOM 트리 (javascript.info, 트리 그림)](https://ko.javascript.info/dom-nodes) · [브라우저 이벤트 소개 (javascript.info, onclick과 addEventListener 비교)](https://ko.javascript.info/introduction-browser-events) · [addEventListener (MDN)](https://developer.mozilla.org/ko/docs/Web/API/EventTarget/addEventListener)
+**더 보기**: [DOM 트리 (javascript.info, 트리 그림)](https://ko.javascript.info/dom-nodes) · [브라우저 이벤트 소개 (javascript.info, onclick과 addEventListener 비교)](https://ko.javascript.info/introduction-browser-events)
 
 ---
 
 ## 7. 이벤트 → 상태 변경 → 화면 업데이트
 
 > 이벤트 핸들러는 **STATE만** 바꾸고, 화면은 **render 함수만** 바꾼다. 그래서 "화면이 왜 이렇게 보이지?"의 답은 항상 STATE에 있다.
-
-**비유로 보기: 점수 기록지와 전광판**
-
-![비유: 점수 기록지와 전광판](images/a07_scoreboard.svg)
-
-**코드로 보기**
 
 ![이벤트, 상태, 화면](images/09_state_render.svg)
 
@@ -400,22 +342,7 @@ const STATE = {
 
 > GitHub가 준 **객체 배열**을 `filter`로 거르고, `map`으로 **HTML 문자열 배열**로 바꾸고, `join`으로 합쳐 화면에 넣는다.
 
-**비유로 보기: 공장 컨베이어 벨트**
-
-![비유: 공장 컨베이어 벨트](images/a08_factory.svg)
-
-**코드로 보기**
-
 ![배열 메서드 파이프라인](images/10_array_pipeline.svg)
-
-| 단계 | 코드 | 결과 |
-|---|---|---|
-| 1. 받기 | `await response.json()` | 저장소 객체 배열 (최근 업데이트 순, 최대 30개) |
-| 2. 거르기 | `.filter((repo) => !repo.fork)` | 남의 저장소를 복사한 fork 제외 |
-| 3. 자르기 | `.slice(0, PROJECT_COUNT)` | 앞에서 6개 |
-| 4. 바꾸기 | `projects.map(createCard)` | 객체 6개 → HTML 문자열 6개 |
-| 5. 합치기 | `.join("")` | 문자열 1개 |
-| 6. 넣기 | `projectGrid.innerHTML = …` | 화면에 카드 6장 |
 
 **배열 메서드**
 
@@ -455,19 +382,13 @@ const result = repos.filter((repo) => !repo.fork).map((repo) => `<h3>${repo.name
 `filter`로 b가 빠져 `[{name:"a"}, {name:"c"}]`, `map`으로 `["<h3>a</h3>", "<h3>c</h3>"]`가 됩니다. `result.join("")`은 `"<h3>a</h3><h3>c</h3>"`입니다.
 </details>
 
-**더 보기**: [배열과 메서드 (javascript.info)](https://ko.javascript.info/array-methods) · [구조 분해 할당 (javascript.info, 그림)](https://ko.javascript.info/destructuring-assignment) · [화살표 함수 기본 (javascript.info)](https://ko.javascript.info/arrow-functions-basics) · [Template literals (MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals)
+**더 보기**: [배열과 메서드 (javascript.info)](https://ko.javascript.info/array-methods) · [구조 분해 할당 (javascript.info, 그림)](https://ko.javascript.info/destructuring-assignment)
 
 ---
 
 ## 9. 비동기: fetch, async/await, try/catch
 
 > 서버 응답은 **언제 올지 모른다.** `await`로 기다린 뒤, 결과에 따라 **loading → success / empty / error** 중 하나로 상태를 바꾸고 그린다.
-
-**비유로 보기: 카페 진동벨**
-
-![비유: 카페 진동벨](images/a09_buzzer.svg)
-
-**코드로 보기**
 
 ![fetch와 상태 4가지](images/11_fetch_states.svg)
 
@@ -506,19 +427,13 @@ const repos = await response.json();
 실제 `loadProjects`에서는 그보다 먼저 `if (!response.ok)`에 걸립니다. Promise에는 `ok`도 없어서(`undefined`) `!undefined`가 `true`가 되고, `"GitHub 응답 오류: undefined"`를 throw해 역시 에러 상태가 됩니다. 어느 쪽이든 **응답을 기다리지 않으면 데이터를 쓸 수 없습니다**.
 </details>
 
-**더 보기**: [async와 await (javascript.info)](https://ko.javascript.info/async-await) · [fetch (javascript.info)](https://ko.javascript.info/fetch) · [Fetch API 사용하기 (MDN)](https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch) · [GitHub REST API 속도 제한 (GitHub Docs)](https://docs.github.com/ko/rest/using-the-rest-api/rate-limits-for-the-rest-api)
+**더 보기**: [async와 await (javascript.info)](https://ko.javascript.info/async-await) · [GitHub REST API 속도 제한 (GitHub Docs)](https://docs.github.com/ko/rest/using-the-rest-api/rate-limits-for-the-rest-api)
 
 ---
 
 ## 10. Intersection Observer: 보이면 나타나기
 
 > "이 요소가 화면에 **20% 들어오면** 알려 줘" 하고 브라우저에 맡기는 감시자. 알림을 받으면 `visible` 클래스를 붙이고 CSS transition이 애니메이션을 한다.
-
-**비유로 보기: 복도 센서등**
-
-![비유: 복도 센서등](images/a10_sensor.svg)
-
-**코드로 보기**
 
 ![Intersection Observer](images/12_observer.svg)
 
