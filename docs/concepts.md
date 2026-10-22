@@ -120,22 +120,18 @@ projectGrid.append(card);
 
 ### div로만 만들었다면 (diff)
 
-아래는 **div로만 만들었을 때**(`-`)와 **이 레포 코드**(`+`)의 차이입니다. 화면 모양은 CSS가 클래스(`.header`, `.section`…)로 꾸미기 때문에 **똑같습니다**. 달라지는 것은 **의미**입니다.
+같은 부분을 **a/ div로만 만들었을 때**와 **b/ 이 레포 코드**로 나눠 놓았습니다. 줄 앞의 `-`와 `+`가 서로 다른 줄입니다. 화면 모양은 CSS가 클래스(`.header`, `.section`…)로 꾸미기 때문에 **똑같습니다**. 달라지는 것은 **의미**입니다.
+
+**index.html**
+
+`a/` div로만 만들었을 때 (`-` = 다른 줄)
 
 ```diff
-diff --git a/index.html b/index.html
---- a/index.html
-+++ b/index.html
-@@ -1,17 +1,17 @@
 -<div class="header" role="banner">
 -  <div class="nav container" role="navigation">
-+<header class="header">
-+  <nav class="nav container">
      <a class="logo" href="#hero">LINK.</a> … 메뉴, 버튼
 -  </div>
 -</div>
-+  </nav>
-+</header>
  
 -<div class="main" role="main">
 -  <div class="hero" id="hero"> … <h1> 인사말 </div>
@@ -144,6 +140,21 @@ diff --git a/index.html b/index.html
 -  <div class="section" id="projects"> … <h2> 프로젝트 </div>
 -  <div class="section" id="contact"> … <h2> 문의 폼 </div>
 -</div>
+ 
+-<div class="footer" role="contentinfo">
+   <p>© 2026 LINK</p> … GitHub 링크
+-</div>
+```
+
+`b/` 이 레포 코드 (`+` = 다른 줄)
+
+```diff
++<header class="header">
++  <nav class="nav container">
+     <a class="logo" href="#hero">LINK.</a> … 메뉴, 버튼
++  </nav>
++</header>
+ 
 +<main>
 +  <section class="hero" id="hero"> … <h1> 인사말 </section>
 +  <section class="section" id="about"> … <h2> 소개 </section>
@@ -152,33 +163,60 @@ diff --git a/index.html b/index.html
 +  <section class="section" id="contact"> … <h2> 문의 폼 </section>
 +</main>
  
--<div class="footer" role="contentinfo">
 +<footer class="footer">
    <p>© 2026 LINK</p> … GitHub 링크
--</div>
 +</footer>
-diff --git a/js/app.js b/js/app.js
---- a/js/app.js
-+++ b/js/app.js
-@@ -1,9 +1,9 @@
+```
+
+→ `div` + `role` 6쌍이 `header`, `nav`, `main`, `section`, `footer`로 바뀜. **클래스와 id는 그대로**라 화면 모양은 같음
+
+**js/app.js**
+
+`a/` div로만 만들었을 때 (`-` = 다른 줄)
+
+```diff
  const createCard = (repo) => {
    const { name, description, language, stargazers_count: stars, html_url: url } = repo;
    return `
 -    <div class="project-card" role="article">
-+    <article class="project-card">
        <h3><a href="${url}" target="_blank" rel="noopener">${name}</a></h3>
        …
 -    </div>
+   `;
+ };
+```
+
+`b/` 이 레포 코드 (`+` = 다른 줄)
+
+```diff
+ const createCard = (repo) => {
+   const { name, description, language, stargazers_count: stars, html_url: url } = repo;
+   return `
++    <article class="project-card">
+       <h3><a href="${url}" target="_blank" rel="noopener">${name}</a></h3>
+       …
 +    </article>
    `;
  };
-diff --git a/css/style.css b/css/style.css
---- a/css/style.css
-+++ b/css/style.css
-@@ -1 +1 @@
+```
+
+→ JS가 만드는 카드도 똑같이 `div role="article"` → `article`
+
+**css/style.css**
+
+`a/` div로만 만들었을 때 (`-` = 다른 줄)
+
+```diff
 -.section, .hero { scroll-margin-top: var(--header-height); }
+```
+
+`b/` 이 레포 코드 (`+` = 다른 줄)
+
+```diff
 +section { scroll-margin-top: var(--header-height); }
 ```
+
+→ 태그 이름으로 고를 수 있어서 클래스를 나열하지 않아도 모든 `section`에 적용됨
 
 | div로만 만들면 | 시맨틱 태그로 만들면 |
 |---|---|
