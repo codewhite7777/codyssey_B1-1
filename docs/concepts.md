@@ -96,6 +96,98 @@
 
 **함께 지킨 것**: 모든 `<img>`에 `alt`(이미지 설명), 폼의 `<label for="email">` ↔ `<input id="email">` 연결. label을 연결하면 글자를 눌러도 입력칸이 선택되고, 화면 낭독기가 칸 이름을 읽어 줍니다.
 
+### 시맨틱 태그는 index.html에서만 쓰나?
+
+아닙니다. 시맨틱 태그는 **HTML 요소의 종류**이지, `index.html` **파일에만** 쓰는 것이 아닙니다. 브라우저가 최종적으로 만드는 **DOM 트리에 그 요소가 들어가기만 하면** 어디서 만들었든 같은 의미를 가집니다. 이 레포에서는 세 파일에 모두 나옵니다.
+
+| 파일 | 어떻게 썼나 | 코드 |
+|---|---|---|
+| `index.html` | 처음부터 적어 둔 뼈대: `header`, `nav`, `main`, `section` 5개, `footer` | [index.html](../index.html#L18-L148) |
+| `js/app.js` | GitHub 데이터로 **JS가 만드는** 카드: 템플릿 리터럴의 `<article>` → `innerHTML`로 DOM에 넣음 | [createCard](../js/app.js#L141-L159) |
+| `css/style.css` | 태그 이름으로 **선택**: `section { scroll-margin-top: … }` | [style.css](../css/style.css#L79) |
+
+JS로 만드는 방법은 두 가지입니다. 이 레포는 1번을 썼습니다.
+
+```js
+// 1. 문자열로 만들어 innerHTML로 넣기 (이 레포의 createCard)
+projectGrid.innerHTML = `<article class="project-card">…</article>`;
+
+// 2. 요소를 직접 만들어 붙이기
+const card = document.createElement("article");
+card.className = "project-card";
+projectGrid.append(card);
+```
+
+### div로만 만들었다면 (diff)
+
+아래는 **div로만 만들었을 때**(`-`)와 **이 레포 코드**(`+`)의 차이입니다. 화면 모양은 CSS가 클래스(`.header`, `.section`…)로 꾸미기 때문에 **똑같습니다**. 달라지는 것은 **의미**입니다.
+
+```diff
+diff --git a/index.html b/index.html
+--- a/index.html
++++ b/index.html
+@@ -1,17 +1,17 @@
+-<div class="header" role="banner">
+-  <div class="nav container" role="navigation">
++<header class="header">
++  <nav class="nav container">
+     <a class="logo" href="#hero">LINK.</a> … 메뉴, 버튼
+-  </div>
+-</div>
++  </nav>
++</header>
+ 
+-<div class="main" role="main">
+-  <div class="hero" id="hero"> … <h1> 인사말 </div>
+-  <div class="section" id="about"> … <h2> 소개 </div>
+-  <div class="section" id="skills"> … <h2> 기술 스택 </div>
+-  <div class="section" id="projects"> … <h2> 프로젝트 </div>
+-  <div class="section" id="contact"> … <h2> 문의 폼 </div>
+-</div>
++<main>
++  <section class="hero" id="hero"> … <h1> 인사말 </section>
++  <section class="section" id="about"> … <h2> 소개 </section>
++  <section class="section" id="skills"> … <h2> 기술 스택 </section>
++  <section class="section" id="projects"> … <h2> 프로젝트 </section>
++  <section class="section" id="contact"> … <h2> 문의 폼 </section>
++</main>
+ 
+-<div class="footer" role="contentinfo">
++<footer class="footer">
+   <p>© 2026 LINK</p> … GitHub 링크
+-</div>
++</footer>
+diff --git a/js/app.js b/js/app.js
+--- a/js/app.js
++++ b/js/app.js
+@@ -1,9 +1,9 @@
+ const createCard = (repo) => {
+   const { name, description, language, stargazers_count: stars, html_url: url } = repo;
+   return `
+-    <div class="project-card" role="article">
++    <article class="project-card">
+       <h3><a href="${url}" target="_blank" rel="noopener">${name}</a></h3>
+       …
+-    </div>
++    </article>
+   `;
+ };
+diff --git a/css/style.css b/css/style.css
+--- a/css/style.css
++++ b/css/style.css
+@@ -1 +1 @@
+-.section, .hero { scroll-margin-top: var(--header-height); }
++section { scroll-margin-top: var(--header-height); }
+```
+
+| div로만 만들면 | 시맨틱 태그로 만들면 |
+|---|---|
+| 태그만 봐서는 어디가 메뉴, 본문, 꼬리말인지 모름. 클래스 이름을 읽어야 앎 | 태그 이름이 곧 역할 |
+| 화면 낭독기에 같은 의미를 알려 주려면 `role="banner"`, `role="navigation"`, `role="main"`, `role="contentinfo"`, `role="article"`을 **하나하나 붙여야** 함 | 태그에 의미가 들어 있어 `role`이 필요 없음 |
+| `role`을 빠뜨려도 화면은 멀쩡해서 실수를 알아채기 어려움 | 빠뜨릴 것이 없음 |
+
+그래서 "**쓸 수 있는 시맨틱 태그가 있으면 `div` + `role` 대신 그 태그를 쓴다**"가 정석입니다. `div`는 의미 없이 묶기만 할 때(예: 이 레포의 `.container`, `.field`) 씁니다.
+
 <details>
 <summary><b>스스로 확인</b>: 프로젝트 섹션 전체는 <code>section</code>, 카드 하나는 <code>article</code>인 이유는?</summary>
 

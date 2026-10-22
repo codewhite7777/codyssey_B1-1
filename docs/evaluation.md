@@ -64,6 +64,10 @@
 
 **꼬리질문 "section과 article 차이?"** → "section은 큰 주제 묶음(프로젝트 섹션 전체), article은 그 안에서 독립된 한 덩어리(저장소 카드 하나)입니다."
 
+**꼬리질문 "시맨틱 태그는 HTML 파일에서만 쓰나?"** → "아닙니다. HTML 요소의 종류라서 DOM에 들어가기만 하면 됩니다. 프로젝트 카드의 `<article>`은 JS(`createCard`)가 만들어 `innerHTML`로 넣었고, CSS도 `section { … }`처럼 태그 이름으로 선택했습니다." ([개념 2](concepts.md#시맨틱-태그는-indexhtml에서만-쓰나))
+
+**꼬리질문 "div로 만들면 안 되나?"** → "화면은 똑같이 나옵니다. 하지만 의미가 사라져서, 같은 의미를 주려면 `role="navigation"` 같은 속성을 하나하나 붙여야 합니다. 쓸 수 있는 시맨틱 태그가 있으면 그 태그를 쓰는 것이 정석입니다." ([div로만 만들었다면](concepts.md#div로만-만들었다면-diff))
+
 ### CSS 변수(:root)의 이점
 
 **보여줄 곳**: [style.css 1번](../css/style.css#L6-L52), [개념 3 그림](concepts.md#3-css-변수와-다크-모드-그리고-localstorage)
