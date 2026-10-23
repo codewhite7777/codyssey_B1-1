@@ -175,7 +175,7 @@
 
 | 파일 | 어떻게 썼나 | 코드 |
 |---|---|---|
-| `index.html` | 처음부터 적어 둔 뼈대: `header`, `nav`, `main`, `section` 5개, `footer` | [index.html](../index.html#L18-L148) |
+| `index.html` | 처음부터 적어 둔 뼈대: `header`, `nav`, `main`, `section` 5개, `footer` | [index.html](../index.html#L18-L156) |
 | `js/app.js` | GitHub 데이터로 **JS가 만드는** 카드: 템플릿 리터럴의 `<article>` → `innerHTML`로 DOM에 넣음 | [createCard](../js/app.js#L141-L159) |
 | `css/style.css` | 태그 이름으로 **선택**: `section { scroll-margin-top: … }` | [style.css](../css/style.css#L79) |
 
@@ -338,7 +338,7 @@ body { background: var(--color-bg); }          /* 쓰는 쪽은 이름만 앎 */
 - 값은 **문자열**로만 저장됩니다. 그래서 `"dark"`, `"light"`처럼 글자로 저장합니다.
 - 클릭할 때 `setItem`으로 저장하고, 페이지가 시작될 때 `getItem`으로 꺼내 STATE에 넣고 `renderTheme()`을 부릅니다.
 
-**이 레포 코드**: [style.css 1번 변수](../css/style.css#L6-L52), [app.js 3번 다크 모드](../js/app.js#L50-L65), [app.js 10번 시작](../js/app.js#L254-L260)
+**이 레포 코드**: [style.css 1번 변수](../css/style.css#L6-L52), [app.js 3번 다크 모드](../js/app.js#L50-L65), [app.js 10번 시작](../js/app.js#L268-L274)
 
 <details>
 <summary><b>스스로 확인</b>: 처음 방문한 사람은 <code>localStorage.getItem("theme")</code> 결과가 무엇이고, 화면은 어떻게 될까?</summary>
@@ -382,7 +382,7 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 그래서 프로젝트 카드는 **미디어 쿼리 없이** 폭에 따라 1열 → 2열 → 3열이 됩니다. 반대로 기술 카드(`.skills`)는 "모바일 1열, 태블릿 2열, 데스크톱 4열"로 **열 수를 직접 정하고 싶어서** 미디어 쿼리로 바꿨습니다. 두 방식을 비교해 볼 수 있게 일부러 다르게 했습니다.
 
-**이 레포 코드**: [.nav](../css/style.css#L114-L121), [.skills](../css/style.css#L172-L179), [.project-grid](../css/style.css#L194-L203)
+**이 레포 코드**: [.nav](../css/style.css#L114-L121), [.skills](../css/style.css#L174-L181), [.project-grid](../css/style.css#L196-L205)
 
 <details>
 <summary><b>스스로 확인</b>: 화면 폭 768px에서 프로젝트 카드는 몇 열일까?</summary>
@@ -425,7 +425,7 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 
 **브레이크포인트**: 768px(태블릿), 1024px(데스크톱). `<meta name="viewport" content="width=device-width">`가 있어야 휴대폰이 실제 폭으로 그려서 미디어 쿼리가 맞게 동작합니다.
 
-**이 레포 코드**: [style.css 5번 반응형](../css/style.css#L267-L294)
+**이 레포 코드**: [style.css 5번 반응형](../css/style.css#L270-L297)
 
 <details>
 <summary><b>스스로 확인</b>: 폭 900px에서 <code>.skills</code>는 몇 열일까? (기본 1열, 768px 이상 2열, 1024px 이상 4열)</summary>
@@ -474,7 +474,7 @@ STATE.theme = localStorage.getItem(THEME_KEY) || "light";
 | 같은 이벤트에 함수 여러 개 | **하나만**. 다시 대입하면 앞의 것을 덮어씀 | **여러 개** 등록, 모두 실행 |
 | 역할 분리 | HTML에 동작 코드가 섞임 | HTML은 구조만, 동작은 JS에만 |
 
-**이 레포 코드**: [app.js 2번 DOM 선택](../js/app.js#L33-L48), [3번 click](../js/app.js#L50-L65), [5번 preventDefault](../js/app.js#L82-L95), [9번 input/submit](../js/app.js#L230-L252)
+**이 레포 코드**: [app.js 2번 DOM 선택](../js/app.js#L33-L48), [3번 click](../js/app.js#L50-L65), [5번 preventDefault](../js/app.js#L82-L95), [9번 input/submit](../js/app.js#L244-L266)
 
 <details>
 <summary><b>스스로 확인</b>: 아래 코드를 실행하고 버튼을 누르면 콘솔에 무엇이 찍힐까?</summary>
@@ -522,7 +522,7 @@ const STATE = {
 **STATE 객체를 따로 만든 이유 (그냥 변수로 하면 안 되나?)**
 - **한눈에 보임**: `let theme`, `let menuOpen`, `let status`…가 파일 곳곳에 흩어지면, 화면에 영향을 주는 값이 무엇인지 찾아야 합니다. STATE 객체의 목록이 곧 "**이 페이지의 상태 전부**"입니다.
 - **화면이 어긋나지 않음**: 핸들러마다 DOM을 직접 고치면, 같은 화면을 여러 곳에서 고치다 서로 다르게 고치기 쉽습니다. render 함수 하나가 STATE를 보고 그리면 같은 STATE → 항상 같은 화면입니다.
-- **확인이 쉬움**: 콘솔에서 `STATE.projectStatus = "empty"; renderProjects();`만 해도 빈 상태 화면이 나옵니다.
+- **확인이 쉬움**: 프로젝트 섹션의 상태 미리보기 버튼은 `STATE.projectStatus`만 바꾸고 `renderProjects()`를 부릅니다. 그것만으로 로딩, 에러, 빈 상태 화면이 나옵니다.
 - **React로 이어짐**: React의 `useState`와 컴포넌트 렌더링이 바로 이 방식입니다. 상태를 바꾸면 React가 render를 대신 불러 줍니다.
 
 변수로도 **동작은 똑같이** 만들 수 있습니다. 차이는 코드가 커질 때 **찾고, 고치고, 확인하기 쉬운가**입니다.
@@ -532,7 +532,7 @@ const STATE = {
 <details>
 <summary><b>스스로 확인</b>: 폼의 이메일 칸에 <code>abc</code>를 입력했다. 이벤트 → 상태 → 화면 순서로 말해 보자.</summary>
 
-1. **이벤트**: 글자를 칠 때마다 `input` 이벤트 → [app.js 9번](../js/app.js#L230-L237)의 핸들러 실행
+1. **이벤트**: 글자를 칠 때마다 `input` 이벤트 → [app.js 9번](../js/app.js#L244-L251)의 핸들러 실행
 2. **상태 변경**: `validate("email", "abc")`가 `"이메일 형식이 아닙니다. …"`를 돌려줌 → `STATE.formErrors.email`에 저장
 3. **화면 업데이트**: `renderForm()`이 STATE.formErrors를 돌며 email 칸 아래 `.error-message`에 문구를 넣고 `.field`에 `error` 클래스 → CSS가 테두리를 빨갛게
 </details>
@@ -651,7 +651,7 @@ const repos = await response.json();
 
 **scroll 이벤트 대신 쓰는 이유**: scroll 이벤트로 하면 스크롤할 때마다 요소 위치를 직접 계산해야 하고, 1초에 수십 번 실행됩니다. Intersection Observer는 **보이는 정도가 바뀔 때만** 브라우저가 알려 줍니다.
 
-**이 레포 코드**: [app.js 7번](../js/app.js#L110-L128), [style.css .reveal](../css/style.css#L262-L265)
+**이 레포 코드**: [app.js 7번](../js/app.js#L110-L128), [style.css .reveal](../css/style.css#L265-L268)
 
 <details>
 <summary><b>스스로 확인</b>: <code>.reveal</code> 요소가 처음에 안 보이는 이유와, 나타날 때 움직이는 이유는?</summary>

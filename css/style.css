@@ -122,7 +122,9 @@ section { scroll-margin-top: var(--header-height); } /* 고정 헤더에 제목�
 .logo { font-size: 1.4rem; font-weight: 800; }
 .nav-buttons { display: flex; align-items: center; gap: var(--space-s); }
 
-.theme-button {
+/* 다크 모드 버튼, 상태 미리보기 버튼: 작은 알약 모양 */
+.theme-button,
+.demo-button {
   padding: 0.4rem 0.9rem;
   border: 1px solid var(--color-border);
   border-radius: 999px;
@@ -204,6 +206,7 @@ section { scroll-margin-top: var(--header-height); } /* 고정 헤더에 제목�
 .project-card h3 a:hover { color: var(--color-accent); }
 .project-info { display: flex; gap: var(--space-m); color: var(--color-muted); font-size: 0.9rem; }
 
+.status-demo { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); margin-bottom: var(--space-m); }
 .project-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m); }
 .project-status p { margin: 0; }
 /* 로딩 스피너: 윗변만 색이 다른 원을 계속 회전 */

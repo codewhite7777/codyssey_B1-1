@@ -105,8 +105,8 @@ HTML에서는 `<link rel="stylesheet" href="css/style.css">`와 `<script src="js
 | [0. 설정값](js/app.js#L9-L17) | 60px, 300px, 0.2 같은 기준값 (아래 [동작 기준값](#동작-기준값)과 같은 값) |
 | [1. STATE](js/app.js#L19-L31) | 화면을 결정하는 값을 한 객체에 모음 |
 | [2. DOM 선택](js/app.js#L33-L48) | `querySelector`로 요소를 한 번만 찾아 둠 |
-| [3~9. 기능](js/app.js#L50-L252) | 다크 모드, 메뉴, 부드러운 스크롤, 스크롤, 애니메이션, API, 폼 |
-| [10. 시작](js/app.js#L254-L260) | 저장된 테마 복원, 프로젝트 요청 |
+| [3~9. 기능](js/app.js#L50-L266) | 다크 모드, 메뉴, 부드러운 스크롤, 스크롤, 애니메이션, API, 폼 |
+| [10. 시작](js/app.js#L268-L274) | 저장된 테마 복원, 프로젝트 요청 |
 
 **규칙**: 이벤트 핸들러는 STATE만 바꾸고, 화면은 render 함수만 바꿉니다. 그래서 "화면이 왜 이렇게 보이지?"의 답은 항상 STATE에 있습니다.
 
@@ -182,14 +182,18 @@ VS Code가 추천하는 **Live Server** 확장을 설치하고, `index.html`에�
 
 ### 5단계. GitHub API 네 가지 상태 확인
 
-| 상태 | 확인 방법 | 화면 |
-|---|---|---|
-| 로딩 | 개발자 도구 Network에서 **Slow 3G**로 바꾸고 새로고침 | 스피너 + "로딩 중..." |
-| 성공 | 그냥 새로고침 | 저장소 카드 6개 |
-| 에러 | Network 탭에서 `repos` 요청을 오른쪽 클릭 → **Block request domain** → 새로고침 | "프로젝트를 불러올 수 없습니다." + **다시 시도** 버튼 → 아래 **Network request blocking** 탭에서 체크를 풀고 다시 시도를 누르면 카드가 나옴 |
-| 빈 상태 | 콘솔(Console)에서 `STATE.projectStatus = "empty"; renderProjects();` | "표시할 프로젝트가 없습니다." |
+프로젝트 섹션의 **상태 미리보기** 버튼으로 바로 확인합니다.
 
-빈 상태는 실제 계정에 저장소가 있어서 콘솔로 **상태만 바꿔 render를 다시 부릅니다**. 상태만 바꾸면 화면이 따라 바뀐다는 것도 같이 보입니다.
+| 버튼 | 하는 일 | 화면 |
+|---|---|---|
+| 로딩 | `STATE.projectStatus = "loading"` → `renderProjects()` | 스피너 + "로딩 중..." |
+| 에러 | `STATE.projectStatus = "error"` → `renderProjects()` | "프로젝트를 불러올 수 없습니다." + **다시 시도** 버튼 |
+| 빈 상태 | `STATE.projectStatus = "empty"` → `renderProjects()` | "표시할 프로젝트가 없습니다." |
+| 실제 데이터 | `loadProjects()`로 GitHub API를 **진짜로** 다시 요청 | 저장소 카드 6개 (성공) |
+
+로딩, 에러, 빈 상태 버튼은 API를 부르지 않고 **STATE만 바꿔 render를 다시 부릅니다**. "상태만 바꾸면 화면이 따라 바뀐다"(이벤트 → 상태 → 화면)가 그대로 보입니다. 에러 화면에서 **다시 시도**를 누르면 실제 요청이 다시 갑니다. ([app.js 8번 상태 미리보기](js/app.js#L201-L213))
+
+실제 요청이 실패하는 경우도 보고 싶다면: 개발자 도구 Network 탭에서 `repos` 요청을 오른쪽 클릭 → **Block request domain** → 새로고침. 로딩을 오래 보려면 Network를 **Slow 3G**로 바꾸고 새로고침합니다.
 
 > GitHub API는 로그인 없이 **시간당 60번**까지만 됩니다. 넘으면 403 응답이 오고, 이것도 에러 상태로 표시됩니다.
 
@@ -253,7 +257,7 @@ https://codewhite7777.github.io/codyssey_B1-1/ 에서 2~6단계가 같게 동작
 | Hero, About, Skills, Projects, Contact, Footer | `id="hero"`, `about`, `skills`, `projects`, `contact`, `<footer>` |
 | 메뉴 앵커 링크 | `<a href="#about">` 등 → 같은 `id`의 section |
 | 이미지 alt | [프로필 이미지](index.html#L61) |
-| label for ↔ input id | [폼](index.html#L116-L136): `for="name"` ↔ `id="name"` 등 3쌍 |
+| label for ↔ input id | [폼](index.html#L124-L144): `for="name"` ↔ `id="name"` 등 3쌍 |
 
 #### 4-3. CSS
 
@@ -263,8 +267,8 @@ https://codewhite7777.github.io/codyssey_B1-1/ 에서 2~6단계가 같게 동작
 | `:root` 변수 (색상, 폰트, 간격) | [style.css 1번](css/style.css#L6-L34) |
 | `[data-theme="dark"]` 변수 | [style.css 1번](css/style.css#L36-L52) |
 | 네비게이션 Flexbox | [`.nav`](css/style.css#L114-L121) |
-| 프로젝트 카드 Grid `auto-fit` + `minmax` | [`.project-grid`](css/style.css#L194-L203) |
-| 모바일 퍼스트, 768px / 1024px | 기본 스타일이 모바일, [`min-width` 미디어 쿼리](css/style.css#L267-L294) |
+| 프로젝트 카드 Grid `auto-fit` + `minmax` | [`.project-grid`](css/style.css#L196-L205) |
+| 모바일 퍼스트, 768px / 1024px | 기본 스타일이 모바일, [`min-width` 미디어 쿼리](css/style.css#L270-L297) |
 | 모바일에서 메뉴 숨김 + 햄버거 | `.nav-menu { display: none }` → 768px 이상에서 보이고 햄버거 숨김 |
 | hover + transition, box-shadow | `.button`, `.skill-card`, `.project-card` |
 
@@ -289,9 +293,9 @@ https://codewhite7777.github.io/codyssey_B1-1/ 에서 2~6단계가 같게 동작
 | 부드러운 스크롤 | [app.js 5번](js/app.js#L82-L95) | 4단계 |
 | 맨 위로 버튼 (300px) | [app.js 6번](js/app.js#L97-L108) | 4단계 |
 | 네비게이션 배경 (60px) | app.js 6번 | 4단계 |
-| 다크 모드 + 로컬스토리지 | [app.js 3번](js/app.js#L50-L65), [10번](js/app.js#L254-L260) | [3단계](#3단계-다크-모드-확인) |
+| 다크 모드 + 로컬스토리지 | [app.js 3번](js/app.js#L50-L65), [10번](js/app.js#L268-L274) | [3단계](#3단계-다크-모드-확인) |
 | 스크롤 애니메이션 (threshold 0.2) | [app.js 7번](js/app.js#L110-L128) | 4단계 |
-| 폼: 필수값, 이메일 형식, 필드 근처 오류, preventDefault + 성공 메시지 | [app.js 9번](js/app.js#L201-L252) | [6단계](#6단계-폼-검증-확인) |
+| 폼: 필수값, 이메일 형식, 필드 근처 오류, preventDefault + 성공 메시지 | [app.js 9번](js/app.js#L215-L266) | [6단계](#6단계-폼-검증-확인) |
 
 #### 4-6. ES6+ 문법과 배열 메서드
 

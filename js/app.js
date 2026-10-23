@@ -198,6 +198,20 @@ const loadProjects = async () => {
 
 retryButton.addEventListener("click", loadProjects); // 다시 시도 = 같은 함수를 다시 실행
 
+// 상태 미리보기(평가용): 버튼 클릭 → STATE.projectStatus 변경 → renderProjects
+// API를 부르지 않고 상태만 바꿔도 화면이 따라 바뀐다는 것을 보여 줌 [개념 7]
+document.querySelectorAll(".demo-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const { status } = button.dataset; // data-status="error" → status = "error"
+    if (status === "reload") {
+      loadProjects(); // "실제 데이터": GitHub API를 진짜로 다시 요청
+      return;
+    }
+    STATE.projectStatus = status; // "loading" | "error" | "empty"
+    renderProjects();
+  });
+});
+
 // =========================================================
 // 9. 문의 폼: 입력/제출 → STATE.formErrors 변경 → renderForm [개념 7]
 // =========================================================

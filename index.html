@@ -97,6 +97,14 @@
         <div class="container">
           <h2>프로젝트</h2>
           <p class="muted">GitHub API에서 최근 업데이트된 저장소를 가져옵니다.</p>
+          <!-- 상태 미리보기(평가용): 누른 버튼의 data-status 값으로 STATE를 바꿔 각 상태 화면을 바로 확인 -->
+          <div class="status-demo">
+            <span class="muted">상태 미리보기</span>
+            <button class="demo-button" type="button" data-status="loading">로딩</button>
+            <button class="demo-button" type="button" data-status="error">에러</button>
+            <button class="demo-button" type="button" data-status="empty">빈 상태</button>
+            <button class="demo-button" type="button" data-status="reload">실제 데이터</button>
+          </div>
           <!-- 상태 표시 영역: hidden 속성을 JS가 켜고 끔 (로딩 = 스피너, 에러 = 다시 시도 버튼) -->
           <div class="project-status">
             <span class="spinner" hidden></span>

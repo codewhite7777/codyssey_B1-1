@@ -16,7 +16,7 @@
 | 2 | 배포 URL을 열고 **2단계** 반응형: 폭을 줄여 햄버거가 나오는 것 | 항목 1, 4 |
 | 3 | **3단계** 다크 모드: 클릭 → 새로고침 → 유지 | 항목 1, 3 |
 | 4 | **4단계** 메뉴, 부드러운 스크롤, 맨 위로, 애니메이션 | 항목 1 |
-| 5 | **5단계** API 네 가지 상태 (api.github.com 차단 → 다시 시도, 콘솔로 빈 상태) | 항목 1, 3, 4 |
+| 5 | **5단계** API 상태: 상태 미리보기 버튼(로딩, 에러, 빈 상태, 실제 데이터) | 항목 1, 3, 4 |
 | 6 | **6단계** 폼: 빈 칸 제출, 이메일 `abc` | 항목 1, 3 |
 | 7 | VS Code에서 `app.js`를 열고 아래 항목 2~4 질문에 답변 | 항목 2~4 |
 
@@ -188,7 +188,7 @@ return `<article class="project-card"><h3><a href="${url}">${name}</a></h3> ...`
 
 ### Flexbox와 Grid를 어디에, 왜
 
-**보여줄 곳**: [`.nav`](../css/style.css#L114-L121), [`.project-grid`](../css/style.css#L194-L203), [개념 4 그림](concepts.md#4-flexbox와-grid-한-줄이냐-바둑판이냐)
+**보여줄 곳**: [`.nav`](../css/style.css#L114-L121), [`.project-grid`](../css/style.css#L196-L205), [개념 4 그림](concepts.md#4-flexbox와-grid-한-줄이냐-바둑판이냐)
 
 | | 어디에 | 왜 |
 |---|---|---|
@@ -211,13 +211,13 @@ return `<article class="project-card"><h3><a href="${url}">${name}</a></h3> ...`
 **보여줄 곳**: [app.js 1번](../js/app.js#L19-L31), README [5단계 빈 상태](../README.md#5단계-github-api-네-가지-상태-확인), [개념 7 그림](concepts.md#7-이벤트--상태-변경--화면-업데이트)
 
 **말하기**
-> "화면을 결정하는 값을 STATE 한 곳에 모아서, **화면이 왜 이렇게 보이는지는 STATE만 보면** 알 수 있게 했습니다. 규칙은 '이벤트는 STATE만 바꾸고, 화면은 render 함수만 바꾼다'입니다. 변수를 흩어 놓거나 이벤트 핸들러에서 DOM을 직접 고치면, 같은 화면을 여러 곳에서 고치게 돼 어긋나기 쉽습니다. 예를 들어 콘솔에서 `STATE.projectStatus = "empty"; renderProjects();`만 해도 빈 상태 화면이 나옵니다. React의 state와 render가 이 방식입니다."
+> "화면을 결정하는 값을 STATE 한 곳에 모아서, **화면이 왜 이렇게 보이는지는 STATE만 보면** 알 수 있게 했습니다. 규칙은 '이벤트는 STATE만 바꾸고, 화면은 render 함수만 바꾼다'입니다. 변수를 흩어 놓거나 이벤트 핸들러에서 DOM을 직접 고치면, 같은 화면을 여러 곳에서 고치게 돼 어긋나기 쉽습니다. 예를 들어 상태 미리보기의 빈 상태 버튼은 API를 부르지 않고 `STATE.projectStatus = "empty"`로 바꾼 뒤 `renderProjects()`만 부르는데, 그것만으로 빈 상태 화면이 나옵니다. React의 state와 render가 이 방식입니다."
 
 **꼬리질문 "변수로 하면 안 되나?"** → "동작은 같게 만들 수 있습니다. 하지만 `let theme`, `let menuOpen`, `let status`...가 흩어지면 화면에 영향을 주는 값이 무엇인지 한눈에 안 보입니다. 객체로 묶으면 목록이 곧 '이 페이지의 상태'입니다."
 
 ### 반응형을 모바일 퍼스트로 작성한 이유
 
-**보여줄 곳**: [style.css 2~4번 기본 = 모바일](../css/style.css#L54-L265), [5번 미디어 쿼리](../css/style.css#L267-L294), [개념 5 그림](concepts.md#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기)
+**보여줄 곳**: [style.css 2~4번 기본 = 모바일](../css/style.css#L54-L268), [5번 미디어 쿼리](../css/style.css#L270-L297), [개념 5 그림](concepts.md#5-모바일-퍼스트-반응형-기본은-휴대폰-넓어지면-더하기)
 
 ```css
 .nav-menu { display: none; }              /* 기본: 모바일 → 메뉴 숨김 */
